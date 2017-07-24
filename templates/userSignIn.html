@@ -1,0 +1,49 @@
+<ion-view view-title="注册绑定" hide-nav-bar="isWeiXin">
+	<ion-nav-buttons side="right">
+		<button class="button button-clear icon ion-share button-small"></button>
+	</ion-nav-buttons>
+	<ion-content class="user_signin">
+		<div class="list">
+			<label class="item item-input item-calm">
+				<span class="input-label">手机号
+					<span class="p_l">|</span>
+				</span>
+				<input type="tel" placeholder="输入手机号" ng-model="signInData.telPhone" ng-focus="phoneFocus()" ng-blur="phoneBlur()"/>
+			</label>
+			<label class="item item-input item-calm check"> 
+				<span class="input-label">
+					验证码
+					<span class="p_l">|</span>
+				</span>
+				<input type="text" class="inline_check" ng-model="signInData.checkNum" name="" id="" placeholder="请输入验证码" />
+			</label>
+			<label class="item item-input item-calm"> 
+				<span class="input-label">
+					<span class="inp_password">密码</span>
+					<span class="p_l">|</span>
+				</span>
+				<input type="password" ng-model="signInData.passwordNum" ng-change="passInpAction()" placeholder="请设置6-20位密码" ng-blur="passwordBlur()"/>
+			</label>
+			<label class="item item-input item-calm"> 
+				<span class="input-label">
+					邀请码
+					<span class="p_l">|</span>
+				</span>
+				<input type="tel" name="" id="" ng-model="signInData.inviteNum" placeholder="请输入邀请人号码（选填）" />
+			</label>
+			<button class="button button-clear signinbtn" ng-click="sendCheckNum()" ng-disabled="state.tel_toggle" ng-bind="state.btn_tip"></button>
+		</div>
+		<div class="padding">
+			<p class="right_tip" ng-click="jumpLogin()">已有账号，点击登录</p>
+		</div>
+		<div class="padding">
+			<p class="t_a signIn_tips padding">
+				温馨提示: 点击确定按钮代表您已同意
+				<a ng-click="jumpAgreement()">《用户协议》</a>
+			</p>
+			<button class="signin_surebtn button button-block" ng-click="saveAccount()">
+				确定
+			</button>
+		</div>
+	</ion-content>
+</ion-view>

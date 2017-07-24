@@ -1,0 +1,29 @@
+<ion-view view-title="金豆兑换" hide-nav-bar="isWeiXin">
+	<ion-content class="storeDraw">
+    	<div class="hot_lunbo">
+    		<img ng-src="{{storeDraw.topImg}}" />
+    	</div>
+    	<div class="list" style="margin-bottom:0">
+    		<div class="item item-calm goods_item">
+    			<h2 ng-bind="storeDraw.mc"></h2>
+    			<p>
+    				<span style="color: #d4a500;" ng-bind="storeDraw.jd"></span>
+    				<span class="p_l">金豆</span>
+    			</p>
+    			<button class="button icon-right ion-ios-arrow-forward btn" ui-sref="tabs.goodsDetail({goodsId:10001})">
+    				<span style="padding:0 10px">|</span>物品信息
+    			</button>
+    		</div>
+    	</div>
+    	<div class="padding goods_draw_note">
+    		<p>
+    			<p style="font-size: 16px; font-weight: 600;margin-bottom: 10px;">金豆兑换说明</p><p>1.请仔细填写收货地址、联系方式，因收货信息有误造成的快递配送失败，奖品视为作废</p><p>2.虚拟奖品以虚拟卡号的形式由系统自动发放到用户中奖记录中</p><p>3.本活动最终解释权归本公司所有</p>
+    		</p>
+    	</div>
+	</ion-content>
+    	<div class="draw_footbar">
+    		<button class="button btn_pay" ng-click="drawAction()">
+    			立即兑换
+    		</button>
+    	</div>
+</ion-view>

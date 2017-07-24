@@ -1,0 +1,32 @@
+<ion-view title="分享邀请码" hide-nav-bar="isWeiXin">
+	<ion-content class="share_code">
+		<div class="imgbox">
+			<img src="http://api.duoniuapp.com/v1/User/GetUserQRcode?userid=19557"/>
+		</div>
+		<p class="sharetitle">我的邀请码</p>
+		<div class="row">
+			<div class="col my_col">
+				1
+			</div>
+			<div class="col my_col">
+				9
+			</div>
+			<div class="col my_col">
+				9
+			</div>
+			<div class="col my_col">
+				9
+			</div>
+			<div class="col my_col">
+				5
+			</div>
+  	  	</div>
+  	  	<div class="padding">
+            <button class="color button button-block sharecode_btn" ng-click="tipsHide()">将邀请码发送给好友
+            </button>
+        </div>
+        <div ng-if="tips" class="sharecodetip">
+	  		<img ng-click="tipsHide()" src="img/310.png">
+	 	</div>
+	</ion-content>
+</ion-view>

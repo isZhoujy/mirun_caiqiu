@@ -1,0 +1,33 @@
+<ion-view view-title="{{state.mesTitle}}" hide-nav-bar="isWeiXin">
+	<ion-content class="mesDetail">
+		<div ng-if="state.mesState==1">
+			<div class="wrap fl" ng-repeat="item in state.mesSystem">
+				<p class="t_a time" ng-bind="item.shijian"></p>
+				<span class="leftd_h">
+					<img ng-src="img/mesCenter/{{state.mesState}}.png"/>
+			     </span>
+				<div class="speech fl">
+					<p ng-bind="item.biaoti"></p>
+					<p ng-bind="item.neirong"></p>
+				</div>
+			</div>
+		</div>
+		<div ng-if="state.mesState==2">
+			<div class="wrap leftd" ng-repeat="item in state.mesMatchList">
+				<div class="wrap fl">
+					<p class="t_a time"></p>
+					<span class="leftd_h">
+						<img ng-src="img/mesCenter/{{state.mesState}}.png"/>
+				     </span>
+					<div class="speech fl">{{item.biaoti}}<br> 开赛时间：{{item.kaisaishijian}}<br> 投注次数：{{item.touzhu}}
+						<br> 兑现次数：{{item.duixian}}
+						<br> 投注金豆：{{item.touzhujindou}}
+						<br> 投注收益：{{item.shouyi}}
+						<br> 更多信息请查看竞猜记录，感谢您的参与！
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</ion-content>
+</ion-view>

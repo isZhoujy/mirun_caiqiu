@@ -1,0 +1,76 @@
+<ion-view title="用户中心" hide-nav-bar="isWeiXin">
+	<ion-content scrollbar-y="false" class="user_center">
+		<div class="visitor" ng-if="!state.loginUserState">
+			<img src="img/userIcon/avatar.png"/>
+			<p class="visitor_tip">你好，{{selfUserData.userName}}</p>
+			<div class="sign_in_btn" ng-click="jumpSignInpage()">绑定账号领取500金豆红包</div>
+			<p class="haveid">已有账号
+				<span style="color:#901b2f" ng-click="jumpLogin()">登录</span>
+			</p>
+		</div>
+		<div class="landingUser list" ng-if="state.loginUserState" ng-click="jumpUserDetail()">
+			<div class="item item-avatar-left item-icon-right item-calm avatar-item">
+				<img ng-src="img/userIcon/{{selfUserData.userIcon}}.png" err-src="img/userIcon/avatar.png"/>
+				<h2 ng-bind="selfUserData.userName"></h2>
+				<p ng-bind="selfUserData.autoGraph"></p>
+				<i class="icon ion-ios-arrow-right"></i>
+			</div>
+		</div>
+		<div class="list">
+			<div class="item item-icon-left item-button-right item-calm">
+				<img class="left_icon" src="img/my-goldcoin.png"/>
+				<h2>
+					<em>我的金币</em>
+					<span class="p_l" ng-bind="selfUserData.goldNumber"></span>
+				</h2>
+				<button class="button button-energized" ng-click="jumpPayCenter()">充值</button>
+			</div>
+			<div class="item item-icon-left item-button-right item-calm">
+				<img class="left_icon" src="img/my-goldbean.png"/>
+				<h2>
+					<em>我的金豆</em>
+					<span class="p_l" ng-bind="selfUserData.selfBean"></span>
+				</h2>
+				<button class="button button-balanced" ui-sref='tabs.beanPayCenter'>兑换</button>
+			</div>
+		</div>
+		<div class="list">
+			<div class="item item-icon-left item-icon-right item-calm" ui-sref="tabs.goldDetailed">
+				<img class="left_icon" src="img/my-p2.png"/>
+				<h2>
+					<em>金币明细</em>
+				</h2>
+				<i class="icon ion-ios-arrow-right"></i>
+			</div>
+			<div class="item item-icon-left item-icon-right item-calm" ui-sref="tabs.beanDetailed">
+				<img class="left_icon" src="img/my-p3.png"/>
+				<h2>
+					<em>金豆明细</em>
+				</h2>
+				<i class="icon ion-ios-arrow-right"></i>
+			</div>
+			<div class="item item-icon-left item-icon-right item-calm" ui-sref="tabs.allRecord">
+				<img class="left_icon" src="img/my-p4.png"/>
+				<h2>
+					<em>竞猜记录</em>
+				</h2>
+				<i class="icon ion-ios-arrow-right"></i>
+			</div>
+			<div class="item item-icon-left item-icon-right item-calm" ui-sref="tabs.mesCenter" style="position: relative;">
+				<img class="left_icon" src="img/my-p5.png"/>
+				<div class="showMes" ng-if="selfUserData.mesShow"></div>
+				<h2>
+					<em>消息中心</em>
+				</h2>
+				<i class="icon ion-ios-arrow-right"></i>
+			</div>
+			<div class="item item-icon-left item-icon-right item-calm" ui-sref="tabs.shareCode" ng-if="false">
+				<img class="left_icon" src="img/share.png"/>
+				<h2>
+					<em>我的邀请码</em>
+				</h2>
+				<i class="icon ion-ios-arrow-right"></i>
+			</div>
+		</div>
+	</ion-content>
+</ion-view>

@@ -1,0 +1,77 @@
+<ion-view view-title="竞猜记录" hide-nav-bar="isWeiXin">
+	<ion-content class="all_record" scroll="false">
+		<div class="btn_pad">
+			<div class="button-bar">
+				<button class="button button-royal button-outline" ng-class="{'active':state.classActive==0}">
+					金豆竞猜
+				</button>
+				<!--<button class="button button-royal button-outline" ng-class="{'active':state.classActive==1}" ng-click="state.classActive=1">
+					万分达人
+				</button>-->
+			</div>
+		</div>
+		<ion-content class="all_record_bean">
+			<div ng-switch="state.classActive">
+				<div ng-switch-when="0">
+					<div ng-if="state.pageShow">
+						<div class="list">
+							<div class="item beanrecord_list" ng-repeat="item in beanRecordData track by $index" ng-click="jumpRecordDetail(item)">
+								<ul class="beanrecord_box">
+									<li class="box_left">
+										<p>
+											<span><img ng-src="img/compete/big/{{item.zid | imgPathFilter}}.png" err-src="img/compete/big/zhudui.png" /></span>
+											<span class="team_name" ng-bind="item.zmc"></span>
+											<span ng-bind="item.zjq"></span>
+										</p>
+										<p>
+											<span><img ng-src="img/compete/big/{{item.kid | imgPathFilter}}.png" err-src="img/compete/big/zhudui.png" /></span>
+											<span class="team_name" ng-bind="item.kmc"></span>
+											<span ng-bind="item.kjq"></span>
+										</p>
+									</li>
+									<li class="box_center">
+										<p>开赛时间</p>
+										<p ng-bind="item.sj"></p>
+									</li>
+									<li class="box_right">
+										<span class="fr">
+											<i class="icon-left ion-chevron-right"></i>
+										</span>
+										<span class="fr p_r" ng-class="{'gain':item.yl>=0,'lose':item.yl<0}" ng-if="item.state==1" ng-bind="item.yl">
+										</span>
+										<span class="fr p_r red" ng-if="item.state==3||item.state==0||item.state==4">竞猜中</span>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="noneContent" ng-if="state.noneCon">
+				    		没有更多内容
+				    	</div>
+				    	<ion-infinite-scroll ng-if="!state.noneCon" on-infinite="load_more()" spinner="dots" distance="1%" immediate-check="true">
+						</ion-infinite-scroll>
+					</div>
+					<div class="has_no_datawrap" ng-if="!state.pageShow">
+						<div class="has_no_data t_a">
+							<div class="t_a no-data-img">
+								<img src="img/has-no-data.png">
+							</div>
+							<p class="text-center">暂无数据!</p>
+						</div>
+					</div>
+				</div>
+				<div ng-switch-when="1">
+					<div class="has_no_datawrap">
+						<div class="has_no_data t_a">
+							<div class="t_a no-data-img">
+								<img src="img/has-no-data.png">
+							</div>
+							<p class="text-center">暂无数据!</p>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</ion-content>
+		
+	</ion-content>
+</ion-view>

@@ -1,0 +1,18 @@
+<ion-view view-title="昵称" hide-nav-bar="isWeiXin">
+	<ion-content class="modify_name">
+		<div class="list">
+			<label class="item item-input">
+		        <input type="text" placeholder="请输入昵称,昵称长度小于9个字符" ng-model="name.midifyName" maxlength="9" />
+	    	</label>
+	    	<span class="padding fr">
+	    		剩余
+	    		<span class="p_l p_r">{{9-name.midifyName.length}}/9</span>
+	    	</span>
+		</div>
+		<div class="padding">
+			<button class="button button-balanced button-block" ng-click="setNameAction()">
+				确定
+			</button>
+		</div>
+	</ion-content>
+</ion-view>

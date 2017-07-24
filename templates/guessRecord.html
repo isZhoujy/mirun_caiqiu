@@ -1,0 +1,117 @@
+<ion-view view-title="竞猜记录" hide-nav-bar="isWeiXin">
+	<ion-content scrollbar-y="false" style="background:#11131c">
+		<div class="row guess_record" style="text-align: center;">
+			<div class="col-33 team_tit">
+				<img ng-src="img/compete/big/{{orderList.zid | imgPathFilter}}.png" err-src="img/compete/big/zhudui.png">
+				<p ng-bind="orderList.zmc"></p>
+			</div>
+			<div class="col team_tit_main" style="padding:3px 0">
+				<div class="row">
+					<div class="col">
+						<span class="count" ng-bind="orderList.zjq"></span> : <span class="count" ng-bind="orderList.kjq"></span>
+					</div>
+				</div>
+				<div class="row" style="margin-top:-5px;">
+					<div class="col" style="font-size:12px;color: #5d68a5; white-space: nowrap;" ng-bind="orderList.sj"></div>
+				</div>
+				<div class="row">
+					<div class="col" ng-if="orderList.state==1">
+						<span class="white">盈利</span>&nbsp;
+						<span ng-class="{'gain':orderList.yl>=0,'lose':orderList.yl<0}" ng-bind="orderList.yl"></span>
+					</div>
+					<button ng-if="orderList.state!=1" class="button button-assertive team_gues_btn">竞猜中</button>
+				</div>
+			</div>
+			<div class="col-33 team_tit">
+				<img ng-src="img/compete/big/{{orderList.kid | imgPathFilter}}.png" err-src="img/compete/big/kedui.png">
+				<p ng-bind="orderList.kmc"></p>
+			</div>
+		</div>
+		<div class="record_bar">
+			<div class="button-bar">
+				<!--<button class="button button-royal button-outline" ng-class="{'active':recordState.tabChange==0}" ng-click="getBailData(0)">委托记录</button>-->
+				<button class="button button-royal button-outline" ng-class="{'active':recordState.tabChange==1}" ng-click="getBailData(1)">成交记录</button>
+			</div>
+		</div>
+		<div ng-switch="recordState.tabChange">
+			<!--<div ng-switch-when="0">
+				<div class="record_result">
+					<div class="has_no_data" ng-if="recordState.bailResStatus==0">
+						<img src="img/has-no-data.png" />
+						<span>暂无数据</span>
+					</div>
+					<div class="has_data" ng-if="recordState.bailResStatus==1">
+						<ion-list>
+							<ion-item>
+								<div class="row" style="color: #b3b3b3;font-size: 15px;background: #171925;">
+									<div class="col-10"></div>
+									<div class="col">时间</div>
+									<div class="col">玩法</div>
+									<div class="col">押</div>
+									<div class="col">赔率</div>
+									<div class="col">注额</div>
+									<div class="col">返还</div>
+								</div>
+							</ion-item>
+						</ion-list>
+					</div>
+				</div>
+			</div>-->
+			<div ng-switch-when="1">
+				<div class="record_result">
+					<div class="has_no_data" ng-if="!orderList.list.length">
+						<img src="img/has-no-data.png" />
+						<span>暂无数据</span>
+					</div>
+					<div class="has_data" ng-if="orderList.list.length">
+						<ion-list>
+							<ion-item class="items">
+								<div class="row" style="color: #b3b3b3;font-size: 15px;background: #171925;">
+									<div class="col-10" style="max-width: 7%;"></div>
+									<div class="col">时间</div>
+									<div class="col">玩法</div>
+									<div class="col center">押</div>
+									<div class="col text-right">赔率</div>
+									<div class="col text-right">注额</div>
+									<div class="col text-right">返还</div>
+								</div>
+							</ion-item>
+						</ion-list>
+						<ion-list>
+							<ion-item class="items" ng-repeat="item in orderList.list" >
+								<div class="row" style="font-size: 12px;" ng-class="{'even':$index%2==0}">
+									<div class="col-10" style="max-width: 7%; padding:5px 0;width: 100%;">
+										<span ng-if="item.zt==4&&item.fh>0" style="color: white;font-weight: 600; padding:0 2px;background:#d19217">中</span>
+										<span ng-if="item.zt==3" style="color: white;font-weight: 600; padding:0 2px;background:#ac1a2f">兑</span>
+										<span ng-if="item.zt==2" style="color: white;font-weight: 600; padding:0 2px;background:#ac1a2f">败</span>
+										<span ng-if="item.zt==0" style="color: white;font-weight: 600; padding:0 2px;background:darkgreen;">未</span>
+									</div>
+									<div class="col" ng-bind="item.sj"></div>
+									<div class="col" ng-bind="item.wf"></div>
+									<div class="col center" ng-bind="item.yz"></div>
+									<div class="col text-right" ng-bind="item.bl"></div>
+									<div class="col text-right" ng-bind="item.ze"></div>
+									<div class="col text-right" ng-bind="item.fh"></div>
+								</div>
+							</ion-item>
+						</ion-list>
+						<ion-list>
+							<ion-item class="items" style="background: transparent;">
+								<div class="row" style="font-size:12px;">
+									<div class="col-10" style="max-width: 7%;"></div>
+									<div class="col"></div>
+									<div class="col"></div>
+									<div class="col center"></div>
+									<div class="col text-right">合计</div>
+									<div class="col text-right" ng-bind="orderList.RequestAmount"></div>
+									<div class="col text-right" ng-bind="orderList.NetReturnMoney"></div>
+								</div>
+							</ion-item>
+						</ion-list>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</ion-content>
+</ion-view>

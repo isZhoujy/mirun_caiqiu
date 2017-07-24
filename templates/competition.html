@@ -1,0 +1,164 @@
+<ion-view view-title="全部赛事" hide-nav-bar="isWeiXin">
+	<div class="bar-subheader" style="position: relative; height: 0; top:44px; z-index: 100;">
+		<div class="tips_title">
+			<!--<span ng-bind="showData.tipTitle.center"></span>
+			<span class="fr p_r" ng-bind="showData.tipTitle.right" style="width: 45px;"></span>-->
+		</div>
+	</div>
+    <ion-content on-scroll="scrollAction()" overflow-scroll="true" delegate-handle="competeContent" scrollbar-y="false" >
+    	<ion-refresher pulling-text="下拉刷新" spinner="ios" on-refresh="doRefresh()" ></ion-refresher>
+		<div class="competition">
+			<div class="padding">
+				<div class="button-bar">
+					<button class="button button-royal button-outline" ng-class="{'active':state.buttonBarActive==$index}" ng-repeat="item in buttonBarTitle" ng-click="barBtnAction($index)">
+						{{item}}
+					</button>
+				</div>
+			</div>
+			<div ng-switch="state.buttonBarActive">
+				<!--热门-->
+				<div ng-switch-when="0">
+					<ion-list class="competionList">
+						<ion-item class="compete_list" ng-repeat="list in competionList track by $index">
+							<div class="list_title" ng-if="list.list.length">
+								<span ng-bind="list.rq"></span>
+								<span class="p_r fr">{{list.zcc}}场</span>
+							</div>
+							<ion-list>
+								<ion-item class="compete_item" ng-repeat="item in list.list track by $index" ng-click="jumpStake(item)">
+									<div class="title">
+										<span class="title_l" ng-bind="item.mc"></span><span class="fr" ng-bind="item.rq"></span> 
+									</div>
+									<div class="compete_item_Data t_a">
+										<p class="compete_item_bg">
+											<span>
+												<img class="ball_left" ng-src="img/compete/big/{{item.zid | imgPathFilter}}.png" err-src="img/compete/big/zhudui.png">
+											</span>
+											<span class="fl team_name" ng-bind="item.zmc"></span>
+											<span>
+												<img class="ball_right" ng-src="img/compete/big/{{item.kid | imgPathFilter}}.png" err-src="img/compete/big/kedui.png">
+											</span>
+											<span class="fr team_name" ng-bind="item.kmc"></span>
+										</p>
+										<div class="compete_item_play">
+											<a disabled="disabled" class="button">
+												<p class="p1">主胜</p>
+												<p class="p2" ng-bind="item.zbl"></p>
+											</a>
+											<a disabled="disabled" class="button">
+												<p class="p1">平局</p>
+												<p class="p2" ng-bind="item.pbl"></p>
+											</a>
+											<a disabled="disabled" class="button">
+												<p class="p1">客胜</p>
+												<p class="p2" ng-bind="item.kbl"></p>
+											</a>
+										</div>
+										<div class="compete_item_btm" style="margin-top: 20px;">
+											<img ng-if="item.HasReward" src="img/rankgoods.png">
+											<p class="fr join">已投注{{item.yz}}次</p>
+										</div>
+									</div>
+								</ion-item>
+							</ion-list>
+						</ion-item>
+					</ion-list>
+					<div class="noneContent" ng-if="state.noneConHot">
+			    		没有更多内容
+			    	</div>
+			    	<ion-infinite-scroll ng-if="!state.noneConHot" on-infinite="load_more()" spinner="dots" distance="1%" immediate-check="false">
+					</ion-infinite-scroll>
+				</div>
+				<!--赛前-->
+				<div ng-switch-when="1">
+					<ion-list class="competionHand">
+						<ion-item class="compete_list" ng-repeat="list in competionHand track by $index">
+							<div class="list_title" ng-if="list.list.length">
+								<span ng-bind="list.rq"></span>
+								<span class="p_r fr">{{list.zcc}}场</span>
+							</div>
+							<ion-list>
+								<ion-item class="compete_item" ng-repeat="item in list.list track by $index" ng-click="jumpStake(item)">
+									<div class="title">
+										<span class="title_l" ng-bind="item.mc"></span><span class="fr" ng-bind="item.rq"></span> 
+									</div>
+									<div class="compete_item_Data t_a">
+										<p class="compete_item_bg">
+											<span>
+												<img class="ball_left" ng-src="img/compete/big/{{item.zid | imgPathFilter}}.png" err-src="img/compete/big/zhudui.png">
+											</span>
+											<span class="fl team_name" ng-bind="item.zmc"></span>
+											<span>
+												<img class="ball_right" ng-src="img/compete/big/{{item.kid | imgPathFilter}}.png" err-src="img/compete/big/kedui.png">
+											</span>
+											<span class="fr team_name" ng-bind="item.kmc"></span>
+										</p>
+										<div class="compete_item_play">
+											<a disabled="disabled" class="button">
+												<p class="p1">主胜</p>
+												<p class="p2" ng-bind="item.zbl"></p>
+											</a>
+											<a disabled="disabled" class="button">
+												<p class="p1">平局</p>
+												<p class="p2" ng-bind="item.pbl"></p>
+											</a>
+											<a disabled="disabled" class="button">
+												<p class="p1">客胜</p>
+												<p class="p2" ng-bind="item.kbl"></p>
+											</a>
+										</div>
+										<div class="compete_item_btm" style="margin-top: 20px;">
+											<img ng-if="item.HasReward" src="img/rankgoods.png">
+											<p class="fr join">已投注{{item.yz}}次</p>
+										</div>
+									</div>
+								</ion-item>
+							</ion-list>
+						</ion-item>
+					</ion-list>
+					<div class="noneContent" ng-if="state.noneConMatch">
+			    		没有更多内容
+			    	</div>
+			    	<ion-infinite-scroll ng-if="!state.noneConMatch" on-infinite="load_more()" spinner="dots" distance="1%" immediate-check="false">
+					</ion-infinite-scroll>
+				</div>
+				<!--赛果-->
+				<div ng-switch-when="2">
+					<ion-list>
+						<ion-item class="compete_list">
+							<ion-list>
+								<ion-item class="compete_result" ng-repeat="item in competionRes track by $index" ng-click="jumpPages(item)">
+									<div class="title">
+										<span ng-bind="item.mc"></span>
+									</div>
+									<div class="team_left">
+										<div class="team_pic">
+											<img ng-src="img/compete/big/{{item.zid | imgPathFilter}}.png" err-src="img/compete/big/zhudui.png" />
+										</div>
+										<p ng-bind="item.zmc"></p>
+									</div>
+									<div class="team_center">
+										<p class="score">{{item.zjq}} : {{item.kjq}}</p>
+										<p class="timer" ng-bind="item.sj"></p>
+									</div>
+									<div class="team_left">
+										<div class="team_pic">
+											<img ng-src="img/compete/big/{{item.kid | imgPathFilter}}.png" err-src="img/compete/big/zhudui.png" />
+										</div>
+										<p ng-bind="item.kmc"></p>
+									</div>
+									<i class="icon ion-ios-arrow-right"></i>
+								</ion-item>
+							</ion-list>
+						</ion-item>
+					</ion-list>
+					<div class="noneContent" ng-if="state.noneConRes">
+			    		没有更多内容
+			    	</div>
+			    	<ion-infinite-scroll ng-if="!state.noneConRes" on-infinite="load_more()" spinner="dots" distance="1%" immediate-check="false">
+					</ion-infinite-scroll>
+				</div>
+			</div>
+		</div>
+    </ion-content>
+ </ion-view>	

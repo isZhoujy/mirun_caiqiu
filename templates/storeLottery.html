@@ -1,0 +1,23 @@
+<ion-view view-title="实物" hide-nav-bar="isWeiXin">
+	<ion-content class="lottery_record">
+		<div class="list">
+			<div class="item lottery_item" ng-repeat="item in exChangeList track by $index">
+				<div class="img_record">
+          			<img ng-src="{{item.tp}}" ng-click="jumpDetail(item)">
+        		</div>
+				<div class="top">
+					<h2 class="name_record" ng-bind="item.mc"></h2>
+					<p class="date_record left" ng-bind="item.sj"></p>
+				</div>
+				<div>
+					<a ng-if="item.zt==0" class="award_btn">发货中</a>
+					<p ng-if="item.zt==1" class="deliver">兑换成功</p>
+				</div>
+			</div>
+		</div>
+		<div class="has_no_data" style="margin-top: 35vw;" ng-if="!exChangeList.length">
+			<img src="img/has-no-data.png" style="margin-left: 6vw;"/>
+			<p>暂无数据</p>
+		</div>
+	</ion-content>
+</ion-view>

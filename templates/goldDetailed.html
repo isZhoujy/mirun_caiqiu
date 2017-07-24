@@ -1,0 +1,80 @@
+<ion-view view-title="金币明细" hide-nav-bar="isWeiXin">
+	<ion-content class="beanDetail" scroll="false">
+		<div class="list">
+			<div class="item item-calm item-icon-right item-icon-left header_item" ng-click="goldJumpPay()">
+				<i class="icon">
+					<img src="img/goldcoin.png"/>
+				</i>
+				<h2 class="t_a" ng-bind="state.selfGoldNum"></h2>
+				<p class="t_a">当前金币余额</p>
+				<i class="icon ion-ios-arrow-forward"></i>
+			</div>
+		</div>
+		<div class="padding">
+			<div class="button-bar">
+				<button class="button button-royal button-outline" ng-class="{'active':state.btnChange==0}" ng-click="state.btnChange=0">充值记录</button>
+				<button class="button button-royal button-outline" ng-class="{'active':state.btnChange==1}" ng-click="state.btnChange=1">消费记录</button>
+			</div>
+			<div ng-switch="state.btnChange">
+				<div ng-switch-when="0">
+					<ion-content class="bean_content">
+						<div ng-if="state.hasAddContent">
+							<div class="list income_list">
+								<div class="item item-calm row income_item" ng-repeat="item in goldAddlist track by $index">
+									<p class="col-40 income_type" style="height: 65px;">
+										<span class="p_r" style="margin-top: 20px;display: block; font-size: 17px;" ng-bind="item.ms">
+										</span>
+									</p>
+									<p class="col-20 income_get" style="line-height: 65px;" ng-bind="item.sl"></p>
+									<p class="col-40 t_r income_date" style="padding-top: 7px;">
+										<span ng-bind="item.rqt"></span><br /><span ng-bind="item.rqb"></span><br /><span ng-bind="item.xxms"></span>
+									</p>
+								</div>
+							</div>
+							<div class="noneContent" ng-if="state.noneInCon">
+					    		没有更多数据
+					    	</div>
+							<ion-infinite-scroll ng-if="!state.noneInCon" on-infinite="load_more()" spinner="dots" distance="1%" immediate-check="true">
+							</ion-infinite-scroll>
+						</div>
+						<div class="has_no_data" ng-if="!state.hasAddContent">
+				            <dl>
+				              <dt><img src="img/has-no-data.png"></dt>
+				              <dd><h2>充值记录暂无数据!</h2></dd>
+				            </dl>
+				       </div>
+				     </ion-content>  
+				</div>
+				<div ng-switch-when="1">
+					<ion-content class="bean_content">
+						<div ng-if="state.hasReduceContent">
+							<div class="list income_list">
+								<div class="item item-calm row income_item" ng-repeat="item in goldReducelist track by $index">
+									<p class="col-40 income_type" style="height: 65px;">
+										<span class="p_r" style="margin-top: 20px;font-size:17px; display: block;" ng-bind="item.ms">
+										</span>
+									</p>
+									<p class="col-20 income_count" style="line-height: 65px;" ng-bind="item.sl"></p>
+									<p class="col-40 t_r income_date" style="padding-top: 7px;">
+										<span ng-bind="item.rqt"></span><br /><span ng-bind="item.rqb"><br /><span ng-bind="item.xxms"></span>
+									</p>
+								</div>
+							</div>
+							<div class="noneContent" ng-if="state.noneOutCon">
+					    		没有更多数据
+					    	</div>
+							<ion-infinite-scroll ng-if="!state.noneOutCon" on-infinite="load_more()" spinner="dots" distance="1%" immediate-check="true">
+							</ion-infinite-scroll>
+						</div>
+						<div class="has_no_data" ng-if="!state.hasReduceContent">
+				            <dl>
+				              <dt><img src="img/has-no-data.png"></dt>
+				              <dd><h2>消费记录暂无数据!</h2></dd>
+				            </dl>
+				        </div>
+					</ion-content>
+				</div>
+			</div>
+		</div>
+	</ion-content>
+</ion-view>

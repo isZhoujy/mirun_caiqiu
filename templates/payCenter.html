@@ -1,0 +1,32 @@
+<ion-view view-title="充值中心" hide-nav-bar="isWeiXin">
+	<div class="userInfo_imgWrap" ng-if="state.pageHide">
+		<div class="payCenter_pop">
+			<h4><span>请选择支付方式</span><i class="icon ion-close-round" style="float: right;" ng-click="closePop()"></i></h4>
+			<div class="popContent">
+				<p ng-click="zhifuPay(1)">微信</p>
+				<p ng-click="zhifuPay(2)">支付宝</p>
+			</div>
+		</div>
+	</div>
+	<div class="weixin_tip" ng-if="state.zhifubaoShow">
+		<p>
+			<img src="img/live_weixin.png" alt="微信打开"/>
+		</p>
+	</div>
+	<ion-content class="payCenter">
+		<div class="list">
+			<div class="item" ng-repeat="item in beanPayList track by $index" ng-click="selectBean(item,$index)" ng-class="{'select':state.selectBean == $index}">
+				<p class="bean_tit">{{item.Title}}</p>
+				<img ng-src="img/{{item.ImgUrl}}"/>
+				<p class="bean_btm">
+					<span class="fl">
+						<i class="icon ion-social-yen"></i>
+						<span ng-bind="item.PayItemID"></span>
+					</span>
+					<span class="fr">购买</span>
+				</p>
+			</div>
+		</div>
+	</ion-content>
+	
+</ion-view>

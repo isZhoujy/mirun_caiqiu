@@ -1,0 +1,18 @@
+<ion-view view-title="消息" hide-nav-bar="isWeiXin">
+	<ion-content class="mesCenter">
+		<div class="list">
+			<div class="item item-avatar-left item-icon-right" ng-click="matchMes(1)">
+				<img src="img/mesCenter/1.png"/>
+				<p class="sysmsg">系统消息</p>
+				<p class="con" ng-bind="systemMesData"></p>
+				<i class="icon ion-ios-arrow-right"></i>
+			</div>
+			<div class="item item-avatar-left item-icon-right" ng-click="matchMes(2)">
+				<img src="img/mesCenter/2.png"/>
+				<p class="match">系统消息</p>
+				<p class="con" ng-bind="matchMesData"></p>
+				<i class="icon ion-ios-arrow-right"></i>
+			</div>
+		</div>
+	</ion-content>
+</ion-view>

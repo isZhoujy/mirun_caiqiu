@@ -1,0 +1,53 @@
+<ion-view title="金豆抽奖" hide-nav-bar="isWeiXin">
+    <ion-content class="store">
+    	<div class="store_head">
+    		<span class="head_tit">
+    			我的金豆
+    			<span style="color: #d4a500;" class="p_l" ng-bind="state.selfBean"></span>
+    		</span>
+    		<button class="button button-calm btn icon-right ion-ios-arrow-forward" ui-sref="tabs.storeLottery">
+    			兑换记录
+    		</button>
+    	</div>
+    	<div class="store_slide">
+    		<head-any-mes content="headMesNoteDe" ng-if="state.headMesNoteState"></head-any-mes>
+	    	<!--<ion-slide-box class="hot_lunbo" does-continue="true">
+	    		<ion-slide ng-repeat="item in picList track by $index">
+	    			<img ng-src="{{item.imgHead}}" />
+	    		</ion-slide>
+	    	</ion-slide-box>-->
+	    	<ion-slide-box class="hot_lunbo" show-pager="true" does-continue="false" auto-play="true" slide-interval="3000">
+    		<ion-slide ng-repeat="item in picList" ng-click="jumpCompete(item)">
+    			<img ng-src="{{item.dz}}"/>
+    		</ion-slide>
+    	</ion-slide-box>
+    	</div>
+    	<div class="list store_list">
+    		<div class="titck_item" ng-click="jumpDetail(item)" ng-repeat="item in productList track by $index">
+    			<div class="item_wrap">
+    				<div class="item_img">
+    					<img ng-src="{{item.tp}}"/>
+    					<p>
+    						<span>
+    							<span style="width:100%;overflow:hidden; white-space:nowrap;text-overflow:ellipsis;color: #d4a500; padding:0 10px" ng-bind="item.ms"></span>
+    						</span>
+    					</p>
+    				</div>
+    				<div class="item_con">
+    					<p class="product_name" ng-bind="item.mc"></p>
+    					<br />
+    					<p class="product_price">
+    						<span style="color: #d4a500; padding-right: 5px;" ng-bind="item.jg"></span>金豆
+    					</p>
+    				</div>
+    				<!--<div class="item_dealine">抽奖截止：{{item.EndDate}}</div>-->
+    			</div>
+    		</div>
+    	</div>
+    	<!--<div class="noneContent" ng-if="state.noneCon">
+    		没有更多内容
+    	</div>
+    	<ion-infinite-scroll ng-if="!state.noneCon" on-infinite="load_more()" spinner="dots" distance="1%" immediate-check="true">
+		</ion-infinite-scroll>-->
+    </ion-content>
+  </ion-view>

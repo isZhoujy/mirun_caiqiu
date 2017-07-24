@@ -1,0 +1,74 @@
+<ion-view view-title="个人信息" hide-nav-bar="isWeiXin">
+	<div class="userInfo_imgWrap" ng-if="enableCrop">
+		<!--<div class="ion-close-round" style="position: absolute;z-index:9999;bottom:20px;left:20px;font-size:30px;color:#fff;" ng-click="imgCancel()"></div>
+		<div class="box" style="color: white;position: absolute;top:24%; z-index: 122;">{{testdata}}</div>
+		<div class="ion-checkmark-round" style="position: absolute;z-index:9999;bottom:20px;right:20px;font-size:30px;color:#fff;" ng-click="imgConfirm()"></div>
+		<div class="cropArea">
+		    <img-crop image="imageDataURI"
+		    	      result-image = "$parent.resImageDataURI"
+		              change-on-fly="changeOnFly"
+		              area-type="{{type}}"
+		              area-min-size="selMinSize"
+		              result-image-format="{{resImgFormat}}"
+		              result-image-quality="resImgQuality"
+		              result-image-size="resImgSize"
+		              on-change="onChange($dataURI)"
+		              on-load-begin="onLoadBegin()"
+		              on-load-done="onLoadDone()"
+		              on-load-error="onLoadError()"
+		    ></img-crop>
+		  </div>-->
+		
+	</div>
+	<ion-content class="userInfo">
+		<div class="list">
+			<div class="item item-avatar-right item-icon-right item-calm" ng-click="jumpUserIcon()">
+				<img style="left:56px; right: auto;" ng-src="img/userIcon/{{userInfo.userIcon}}.png" err-src="img/userIcon/avatar.png"//>
+				<h2>
+					头像
+				</h2>
+				<!--<input type="file" id="fileInput" style="opacity: 0;position: absolute;width: 100%;height: 100%; top:0;left:0"/>-->
+				<i class="icon ion-ios-arrow-right"></i>
+			</div>
+			<div class="item item-calm item-icon-right" ng-click="jumpModifyName()">
+				<h2 class="special">
+					<span class="special_tit">昵称</span>
+					<span class="common p_l" ng-bind="userInfo.name"></span>
+				</h2>
+				<i class="icon ion-ios-arrow-right"></i>
+			</div>
+			<div class="item item-calm item-icon-right" ng-click="sexModify()">
+				<h2 class="special">
+					<span class="special_tit">性别</span>
+					<span class="common p_l" ng-bind="userInfo.gender"></span>
+				</h2>
+				<i class="icon ion-ios-arrow-right"></i>
+			</div>
+			<div class="item item-calm item-icon-right" ng-click="modifyAutoGragh()">
+				<h2 class="special">
+					<span class="special_tit">签名</span>
+					<span class="common p_l" ng-bind="userInfo.autoGraph"></span>
+				</h2>
+				<i class="icon ion-ios-arrow-right"></i>
+			</div>
+			<label class="item item-calm item-icon-right" style="margin-bottom:10px;">
+				<h2 class="special">
+					<span class="special_tit">生日</span>
+					<span class="common p_l" ng-bind="userInfo.birthday"></span>
+				</h2>
+				<input type="date" ng-change="inpDateChange()" style="opacity: 0;position: absolute;width: 100%;height: 100%; top:0;left:0" ng-model="userInfo.dateData"/>
+				<i class="icon ion-ios-arrow-right"></i>
+			</label>
+			<div class="item item-calm item-icon-right" ng-click="changePWAction()">
+				<h2 class="special">
+					<span class="special_tit">密码</span>
+					<span class="common p_l">修改登录密码</span>
+				</h2>
+				<i class="icon ion-ios-arrow-right"></i>
+			</div>
+			<button class="button button-calm button-block" ng-click="changeUser()">
+				切换用户
+			</button>
+		</div>
+	</ion-content>
+</ion-view>

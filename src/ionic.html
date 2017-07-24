@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html ng-app="demo">
+	<head>
+		<meta charset="UTF-8">
+    <title>Ionic SideMenu + Tabs</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	</head>
+	<!--<link href="src/lib/css/ionic.min.css" type="text/css" rel="stylesheet" />-->
+	<style type="text/css">
+		.pull-right{
+  float: right;
+}
+.button-halfwidth{
+  width: 49%;
+}
+.button-fullwidth{
+  width: 100%;
+}
+	</style>
+	<body>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+
+    <link href="http://code.ionicframework.com/1.0.0-beta.9/css/ionic.min.css" rel="stylesheet">
+    <script src="http://code.ionicframework.com/1.0.0-beta.9/js/ionic.bundle.min.js"></script>
+</head>
+<body>
+
+<ion-nav-view></ion-nav-view>
+  
+<script id="root.html" type="text/ng-template">
+    <ion-view title="Ionic SideMenu + Tabs">
+
+      <ion-nav-bar class="bar-energized"></ion-nav-bar>
+      <ion-content has-header="true" padding="true">
+
+        <p>This is just a proof of concepts demo.<br/>
+           I wrote (still writing) a full article about that <a href="http://codepen.io/mircobabini/developer/ionic-sidemenu-tabs">here</a>.<br/>
+           <br/>
+          <b>Tips:</b>
+          <ul>
+            <li>Use the <a href="http://codepen.io/mircobabini/pen/gLkli/left">LEFT Codepen View</a></li>
+            <li>Feel free to contrib, share, comment and fork</li>
+        </p>
+        <a class="button button-halfwidth" nav-clear ui-sref="fst.home">First Section</a>
+        <a class="button button-halfwidth pull-right" nav-clear ui-sref="snd.home">Second Section</a>
+
+      </ion-content>
+
+    </ion-view>
+</script>
+  
+<script id="fst-abstract.html" type="text/ng-template">
+
+    <ion-side-menus>
+      <ion-side-menu-content ng-controller="NavController">
+
+        <ion-nav-bar class="bar-energized nav-title-slide-ios7">
+          <ion-nav-back-button class="button-clear"><i class="icon ion-ios7-arrow-back"></i></ion-nav-back-button>
+        </ion-nav-bar>
+        <ion-nav-view name="fst" animation="slide-left-right"></ion-nav-view>
+      
+      </ion-side-menu-content>
+      <ion-side-menu side="left" ng-controller="NavController">
+
+        <ion-header-bar class="bar bar-header bar-assertive">
+          <h1 class="title">First Section Left Menu</h1>
+        </ion-header-bar>
+        <ion-content has-header="true">
+          <ul class="list">
+            <a ui-sref="fst.first" class="item" ng-click="toggleLeft()">Single: First</a>
+            <a ui-sref="fst.second" class="item" ng-click="toggleLeft()">Single: Second</a>
+          </ul>
+        </ion-content>
+
+      </ion-side-menu>
+    </ion-side-menus>
+
+</script>
+<script id="fst-home.html" type="text/ng-template">
+    <ion-view title="First Section">
+
+      <ion-nav-buttons side="left">
+
+        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+
+      </ion-nav-buttons>
+      <ion-content has-header="true" padding="true">
+
+        <h3>First Section's home</h3>
+        <a class="button button-halfwidth" nav-clear ui-sref="root">Back to the Root</a>
+        <a class="button button-halfwidth pull-right" nav-clear ui-sref="snd.home">Second Section</a>
+
+      </ion-content>
+
+    </ion-view>
+</script>
+<script id="fst-first.html" type="text/ng-template">
+    <ion-view title="Fst - Single First">
+
+      <ion-content has-header="true" padding="true">
+        I't just a single page with the back button in the nav bar. Back to the Fst Section, of course.
+      </ion-content>
+
+    </ion-view>
+</script>
+<script id="fst-second.html" type="text/ng-template">
+    <ion-view title="Fst - Single Second">
+
+      <ion-content has-header="true" padding="true">
+        I't just a single page with the back button in the nav bar. Back to the Fst Section, of course.
+      </ion-content>
+
+    </ion-view>
+</script>
+
+<script id="snd-abstract.html" type="text/ng-template">
+  
+  <ion-side-menus>
+    <ion-side-menu-content ng-controller="NavController">
+
+      <ion-nav-bar class="bar-energized nav-title-slide-ios7">
+        <ion-nav-back-button class="button-clear"><i class="icon ion-ios7-arrow-back"></i></ion-nav-back-button>
+      </ion-nav-bar>
+      <ion-nav-view name="snd" animation="slide-left-right"></ion-nav-view>
+
+    </ion-side-menu-content>
+    <ion-side-menu side="left" ng-controller="NavController">
+
+      <ion-header-bar class="bar bar-header bar-assertive">
+        <h1 class="title">Second Section Left Menu</h1>
+      </ion-header-bar>
+      <ion-content has-header="true">
+        <ul class="list">
+          <a ui-sref="snd.home" nav-clear class="item" ng-click="toggleLeft()">Home</a>
+          <a ui-sref="snd.chat" nav-clear class="item" ng-click="toggleLeft()">Chat</a>
+          <a ui-sref="snd.drink" nav-clear class="item" ng-click="toggleLeft()">Drink</a>
+        </ul>
+      </ion-content>
+      <ion-footer-bar class="bar bar-footer">
+        <a class="button button-fullwidth" ui-sref="snd.policy" ng-click="toggleLeft()">Privacy Policy</a>
+      </ion-footer-bar>
+
+    </ion-side-menu>
+  </ion-side-menus>
+
+</script>
+<script id="snd-home.html" type="text/ng-template">
+    <ion-view title="Second Section">
+
+      <ion-nav-buttons side="left">
+
+        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+
+      </ion-nav-buttons>
+      <ion-content has-header="true" padding="true">
+
+        <h3>Second Section's home</h3>
+        <a class="button button-fullwidth" nav-clear ui-sref="root">Back to the Root</a>
+
+      </ion-content>
+
+      <div class="tabs tabs-icon-only">
+        <a nav-clear class="tab-item disable-user-behavior active" title="Home" nav-clear ui-sref="snd.home">
+          <i class="icon ion-home"></i><span class="tab-title ng-binding" ng-bind-html="title"></span>123
+        </a>
+        <a nav-clear class="tab-item disable-user-behavior" title="Chat" icon-on="ion-ios7-filing" icon-off="ion-ios7-filing-outline" ui-sref="snd.chat">
+          <i class="icon ion-chatbubbles"></i><span class="tab-title ng-binding" ng-bind-html="title"></span>
+        </a>
+        <a nav-clear class="tab-item disable-user-behavior" title="Drink" icon-on="ion-ios7-filing" icon-off="ion-ios7-filing-outline" ui-sref="snd.drink">
+          <i class="icon ion-wineglass"></i><span class="tab-title ng-binding" ng-bind-html="title"></span>
+        </a>
+      </div>
+  </ion-view>
+</script>
+<script id="snd-chat.html" type="text/ng-template">
+    <ion-view title="Snd - Chat list">
+
+      <ion-nav-buttons side="left">
+
+        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+
+      </ion-nav-buttons>
+      <ion-content has-header="true" padding="true">
+
+        <h3>Chat list</h3>
+        <div class="list">
+
+            <a class="item item-avatar" href="#/snd/chat-single">
+              <img src="http://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Zachary_Quinto_2011.jpg/200px-Zachary_Quinto_2011.jpg" />
+              <h2>Oliver Thredson</h2>
+              <p>I'm a psychiatrist at Briarcliff Institute</p>
+            </a>
+            <a class="item item-avatar" href="#/snd/chat-single">
+              <img src="http://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Sarah_Paulson_12_Years_a_Slave_55_cropped.jpg/129px-Sarah_Paulson_12_Years_a_Slave_55_cropped.jpg" />
+              <h2>Lana Winters</h2>
+              <p>I'm an ambitious journalist committed to the asylum</p>
+            </a>
+            <a class="item item-avatar" href="#/snd/chat-single">
+              <img src="http://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Evan_Peters_by_Gage_Skidmore.jpg/165px-Evan_Peters_by_Gage_Skidmore.jpg" />
+              <h2>Kit Walker</h2>
+              <p>I'm an inmate at Briarcliff Institute</p>
+            </a>
+
+        </div>
+      </ion-content>
+
+      <div class="tabs tabs-icon-only">
+        <a class="tab-item disable-user-behavior" title="Home" nav-clear ui-sref="snd.home">
+          <i class="icon ion-home"></i><span class="tab-title ng-binding" ng-bind-html="title"></span>
+        </a>
+        <a nav-clear class="tab-item disable-user-behavior active" title="Chat" icon-on="ion-ios7-filing" icon-off="ion-ios7-filing-outline" ui-sref="snd.chat">
+          <i class="icon ion-chatbubbles"></i><span class="tab-title ng-binding" ng-bind-html="title"></span>
+        </a>
+        <a nav-clear class="tab-item disable-user-behavior" title="Drink" icon-on="ion-ios7-filing" icon-off="ion-ios7-filing-outline" ui-sref="snd.drink">
+          <i class="icon ion-wineglass"></i><span class="tab-title ng-binding" ng-bind-html="title"></span>
+        </a>
+      </div>
+    </ion-view>
+</script>
+<script id="snd-chat-single.html" type="text/ng-template">
+    <ion-view title="Oliver Thredson">
+
+      <ion-content has-header="true" padding="true">
+
+        <div class="list card">
+
+          <div class="item item-avatar">
+            <img src="http://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Zachary_Quinto_2011.jpg/200px-Zachary_Quinto_2011.jpg">
+            <h2>Oliver Thredson</h2>
+            <p>I'm a psychiatrist at Briarcliff Institute</p>
+          </div>
+
+          <div class="item item-body">
+            <p>
+              Unlike most of the staff at Briarcliff, Dr Thredson was stoically calm and clinical around patients at the beginning of the series. He also had a less barbaric outlook towards treatment, saying that more compassion would greatly improve conditions for the patients. He was willing to look at the patients as more than just insane criminals in comparison to the sadistic treatment of Sister Jude. However, in his alter ego as "Bloody Face", he reverted to his darker side - an unhinged, sadistic murderer with deep-seated maternal abandonment issues.
+            </p>
+            <p>
+              <a href="#" class="subdued">1 Like</a>
+            </p>
+          </div>
+
+          <div class="item tabs tabs-secondary tabs-icon-left">
+            <a class="tab-item" href="#">
+              <i class="icon ion-thumbsup"></i>
+              Like
+            </a>
+            <a class="tab-item" href="#">
+              <i class="icon ion-chatbubbles"></i>
+              Chat
+            </a>
+          </div>
+
+        </div>
+      </ion-content>
+
+    </ion-view>
+</script>
+<script id="snd-drink.html" type="text/ng-template">
+    <ion-view title="Snd - Drink list">
+
+      <ion-nav-buttons side="left">
+
+        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+
+      </ion-nav-buttons>
+      <ion-content has-header="true" padding="true">
+
+        <h3>Drink list</h3>
+        <div class="list">
+
+            <a class="item item-avatar" href="#">
+              <img src="http://lh6.ggpht.com/FftLqhhGQXPTySOyXdZBtMPh81Sgu_bsKthhzMu-U_7UJ8-Zbzk3mrbsa0th-Vv28LNWvZMBt-_B5i89q_HEzhM=s230-c" />
+              <h2>Ultimate Bloody Mary</h2>
+              <p>Tomato juice, habanero, aquavit and Lea & Perrins Worcestershire Sauce</p>
+            </a>
+            <a class="item item-avatar" href="#">
+              <img src="http://lh5.ggpht.com/QR4CdPeEJjRZWlr7QjFUmuSfbMFezyWPv5udJQoqIKrHhdDYCXzHKx2Rwn9cq-1TbpEFoSUHtn_TUnDO0KnvkA=s230-c" />
+              <h2>Bloody Scary</h2>
+              <p>Blood orange juice, campari, prosecco, vodka and simple syrup</p>
+            </a>
+            <a class="item item-avatar" href="#">
+              <img src="http://lh5.ggpht.com/hHUPkpVrUoxEVnDlXuS1h2yOgGKuvi2Td9Gr8lrFgxWdB_ExbgLvZ8AOKKoX2luv_-GIkuH72UA9nYx9IiRHAA=s230-c" />
+              <h2>Wasabi Bloody Marys</h2>
+              <p>Ice, tomato juice, vodka, wasabi powder, soy sauce, lemon juice and more</p>
+            </a>
+
+        </div>
+      </ion-content>
+
+      <div class="tabs tabs-icon-only">
+        <a nav-clear class="tab-item disable-user-behavior" title="Home" ui-sref="snd.home">
+          <i class="icon ion-home"></i><span class="tab-title ng-binding" ng-bind-html="title"></span>
+        </a>
+        <a nav-clear class="tab-item disable-user-behavior" title="Chat" icon-on="ion-ios7-filing" icon-off="ion-ios7-filing-outline" ui-sref="snd.chat">
+          <i class="icon ion-chatbubbles"></i><span class="tab-title ng-binding" ng-bind-html="title"></span>
+        </a>
+        <a nav-clear class="tab-item disable-user-behavior active" title="Drink" icon-on="ion-ios7-filing" icon-off="ion-ios7-filing-outline" ui-sref="snd.drink">
+          <i class="icon ion-wineglass"></i><span class="tab-title ng-binding" ng-bind-html="title"></span>
+        </a>
+      </div>
+    </ion-view>
+</script>
+<script id="snd-policy.html" type="text/ng-template">
+    <ion-view title="Privacy Policy">
+
+      <ion-content has-header="true" padding="true">
+
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel tellus lorem. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent erat purus, tempus quis nisi pharetra, fermentum vehicula quam.<br/>
+        <br/>
+        Praesent varius, turpis ac adipiscing consequat, tellus leo auctor lorem, in elementum nulla orci sit amet orci. Donec accumsan vitae eros et iaculis. Sed non auctor turpis. Mauris tellus turpis, tincidunt vel risus a, fermentum porta arcu. Integer elit dui, tristique sed nunc vel, pharetra venenatis lectus.<br/>
+        <br/>
+        Fusce felis tortor, porta sed est vel, pellentesque consequat magna. Vivamus ultrices, felis a dignissim venenatis, mauris mauris rhoncus lorem, eget euismod sapien sem aliquam lacus. Donec in lacus eu nunc laoreet semper.<br/>
+        <br/>
+        <button class="button button-fullwidth" nav-clear ui-sref="snd.home">Ok, back</button>
+
+      </ion-content>
+
+  </ion-view>
+</script>
+  
+
+	</body>
+		<!--<script src="src/lib/js/ionic.bundle.min.js"></script>-->
+		<script type="text/javascript">
+			
+			angular.module('demo', ['ionic'])
+
+    .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+
+        $stateProvider
+            .state('root', {
+                url : '/root',
+                templateUrl : 'root.html',
+                controller : 'RootPageController'
+            })
+
+            .state('fst', {
+                url : '/fst',
+                templateUrl : 'fst-abstract.html',
+                abstract : true,
+                controller : 'FstController'
+            })
+            .state('fst.home', {
+                url: '/home',
+                views: {
+                    'fst': {
+                        templateUrl: 'fst-home.html',
+                        controller : 'FstHomePageController'
+                    }
+                }
+            })
+            .state('fst.first', {
+                url: '/first',
+                views: {
+                    'fst': {
+                        templateUrl: 'fst-first.html',
+                        controller : 'FstFirstPageController'
+                    }
+                }
+            })
+            .state('fst.second', {
+                url: '/second',
+                views: {
+                    'fst': {
+                        templateUrl: 'fst-second.html',
+                        controller : 'FstSecondPageController'
+                    }
+                }
+            })
+
+            .state('snd', {
+                url : '/snd',
+                templateUrl : 'snd-abstract.html',
+                abstract : true,
+                controller : 'SndController'
+            })
+            .state('snd.home', {
+                url: '/home',
+                views: {
+                    'snd': {
+                        templateUrl: 'snd-home.html',
+                        controller : 'SndHomePageController'
+                    }
+                }
+            })
+            .state('snd.chat', {
+                url: '/chat',
+                views: {
+                    'snd': {
+                        templateUrl: 'snd-chat.html',
+                        controller : 'SndChatPageController'
+                    }
+                }
+            })
+            .state('snd.chat-single', {
+              url: '/chat-single',
+              views: {
+                'snd': {
+                  templateUrl: 'snd-chat-single.html',
+                  controller : 'SndChatSinglePageController'
+                }
+              }
+            })
+            .state('snd.drink', {
+                url: '/drink',
+                views: {
+                    'snd': {
+                        templateUrl: 'snd-drink.html',
+                        controller : 'SndDrinkPageController'
+                    }
+                }
+            })
+            .state('snd.policy', {
+                url: '/policy',
+                views: {
+                    'snd': {
+                        templateUrl: 'snd-policy.html',
+                        controller : 'SndPolicyPageController'
+                    }
+                }
+            })
+
+        $urlRouterProvider.otherwise('/root');
+    }])
+
+    .controller('RootPageController', function($scope, $ionicSideMenuDelegate) {
+    })
+
+    .controller('NavController', function($scope, $ionicSideMenuDelegate) {
+      $scope.toggleLeft = function() {
+        $ionicSideMenuDelegate.toggleLeft();
+      };
+    })
+    .controller('FstController', function($scope, $ionicSideMenuDelegate) {
+    })
+    .controller('FstHomePageController', function($scope, $ionicSideMenuDelegate) {
+    })
+    .controller('FstFirstPageController', function($scope, $ionicSideMenuDelegate) {
+    })
+    .controller('FstSecondPageController', function($scope, $ionicSideMenuDelegate) {
+    })
+
+    .controller('SndController', function($scope, $ionicSideMenuDelegate) {
+    })
+    .controller('SndHomePageController', function($scope, $ionicSideMenuDelegate) {
+    })
+    .controller('SndChatPageController', function($scope, $ionicSideMenuDelegate) {
+    })
+    .controller('SndChatSinglePageController', function($scope, $ionicSideMenuDelegate) {
+    })
+    .controller('SndDrinkPageController', function($scope, $ionicSideMenuDelegate) {
+    })
+    .controller('SndPolicyPageController', function($scope, $ionicSideMenuDelegate) {
+    })
+
+
+
+		</script>
+</html>

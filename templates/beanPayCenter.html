@@ -1,0 +1,21 @@
+<ion-view view-title="金豆兑换" hide-nav-bar="isWeiXin">
+	<ion-content class="beanPayCenter">
+		<div class="list">
+			<div class="bean_item item">
+				<span class="button bean_btn button-clear" ng-repeat="item in beanList track by $index" ng-class="{'active':state.btnState==($index+1)}" ng-click="btnAction(item)">
+					{{item.price}}金豆
+				</span>
+				<input type="number" class="bean_inp" placeholder="自定义" ng-model="state.goldBean" ng-focus="beanCustom()" ng-change="customChange()"/>
+			</div>
+		</div>
+		<div class="list">
+			<div class="item pay_item">
+				<p>支付金币 : <span ng-bind="state.showPrice"></span><span class="p_l" style="color: #363d59;">(账户余额 : <span ng-bind="state.showSelfPrice"></span>金币)</span></p>
+			</div>
+		</div>
+		
+	</ion-content>
+	<ion-footer-bar class="footBar">
+			<button class="button btn_exchange" ng-click="exchageAction()">立即兑换</button>
+		</ion-footer-bar>
+</ion-view>

@@ -1,0 +1,76 @@
+<ion-view view-title="首页" hide-nav-bar="isWeiXin">
+	<ion-nav-buttons side="right">
+		<button class="button button-clear icon ion-share button-small"></button>
+	</ion-nav-buttons>
+    <ion-content scrollbar-y="false" class="hot_main" overflow-scroll="false">
+    	<ion-refresher pulling-text="下拉刷新..."	on-refresh="doRefresh()" spinner="ios"></ion-refresher>
+    	<head-any-mes content="headMesNote" ng-if="state.headMesNoteState"></head-any-mes>
+    	<ion-slide-box class="hot_lunbo" show-pager="true" does-continue="false" auto-play="true" slide-interval="3000">
+    		<ion-slide ng-repeat="item in picList" ng-click="jumpCompete(item)">
+    			<img ng-src="{{item.dz}}"/>
+    		</ion-slide>
+    	</ion-slide-box>
+    	<div class="new_user">
+    		<img src="img/newuser.png"/>
+    		<div class="row">
+    			<div class="col" ng-click="getPacket()"></div>
+    			<div class="col"></div>
+    			<div class="col"></div>
+    		</div>
+    	</div>
+    	<ion-list class="match_list">
+    		<ion-item ng-click="goDefault(item)" class="match_every_item" ng-repeat="item in matchList track by $index">
+    			<div class="title">
+    				<span class="title_left" ng-bind="item.mc"></span>
+    				<span class="title_right" ng-if="!item.time_State">
+    					<span class="title_titme" ng-bind="item.hours">00</span>&nbsp;:
+    					<span class="title_titme" ng-bind="item.minutes">00</span>&nbsp;:
+    					<span class="title_titme" ng-bind="item.seconds">00</span>
+    				</span>
+    				<span class="title_right" ng-class="{'title_underway':item.state==3||item.Time=='进行中','title_underwayY':item.state==1,'title_underwayYY':item.state==4}" ng-if="item.time_State" ng-bind="item.Time"></span>
+    			</div>
+    			<div class="middle">
+    				<div class="mid_left">
+    					<div class="mid_left_tit">
+    						<span><img class="ball_left" ng-src="img/compete/big/{{item.zid | imgPathFilter}}.png" err-src="img/compete/big/zhudui.png"></span>
+							<span style="padding-left: 3vw; color:#92A0CC;width: 25vw;" ng-bind="item.zmc"></span>
+    					</div>
+    					<div class="mid_left_tit">
+    						<span><img class="ball_right" ng-src="img/compete/big/{{item.kid | imgPathFilter}}.png" err-src="img/compete/big/kedui.png"></span>
+							<span style="padding-left: 3vw;color:#92A0CC;width: 25vw;" ng-bind="item.kmc"></span>
+    					</div>
+    				</div>
+    				<div class="mid_right">
+    					<div class="mid_right_count">
+    						<i class="count_btn">
+    							<div style="font-size:13px;">主胜</div>
+    							<div style="font-size:12px;" ng-bind="item.zbl"></div>
+    						</i>
+    						<i class="count_btn">
+    							<div style="font-size:13px;">平局</div>
+    							<div style="font-size:12px;" ng-bind="item.pbl"></div>
+    						</i>
+    						<i class="count_btn">
+    							<div style="font-size:13px;">客胜</div>
+    							<div style="font-size:12px;" ng-bind="item.kbl"></div>
+    						</i>
+    					</div>
+    				</div>
+    				<div class="mid_right_icon">
+    					<i class="icon-left ion-chevron-right"></i>
+    				</div>
+    				<div class="mid_bottom">
+    					<!--<img ng-show="state.rankgood" src="img/rankgoods.png"/>
+    					<img ng-show="!state.rankgood" src="img/norankgoods.png"/>-->
+    					<p>已投注{{item.yz}}次</p>
+    				</div>
+    			</div>
+    		</ion-item>
+    	</ion-list>
+    	<div class="noneContent" ng-if="state.noneCon">
+    		没有更多内容
+    	</div>
+    	<ion-infinite-scroll ng-if="!state.noneCon" on-infinite="load_more()" spinner="dots" distance="1%" immediate-check="false">
+		</ion-infinite-scroll>
+    </ion-content>
+  </ion-view>

@@ -1,0 +1,1096 @@
+<ion-view view-title="赛事详情" hide-nav-bar="isWeiXin">
+	<!--<ion-nav-buttons side="right">
+		<button class="button button-clear icon ion-share button-small"></button>
+	</ion-nav-buttons>-->
+	<ion-content scrollbar-y="false" scroll="false" class="hot_default" has-bouncing="false">
+		<head-any-mes content="headMesNoteDe" ng-if="guessState.headMesNoteState"></head-any-mes>
+		<div style="height:185px;">
+			<div class="default_head">
+				<div class="matchItemL">
+					<span class="matchItem1 fl" ng-bind="playMeathod.detail.zmc"></span>
+					<i class="fl"><img ng-src="img/compete/big/{{playMeathod.detail.zid | imgPathFilter}}.png" err-src="img/compete/big/zhudui.png" /></i>
+					<span class="padding-left match_item_con" ng-bind="playMeathod.detail.zscore"></span>
+				</div>
+				<span class="matchItemC" ng-bind="playMeathod.detail.startState "></span>
+				<div class="matchItemL">
+					<span class="matchItem1 fr" ng-bind="playMeathod.detail.kmc"></span>
+					<i class="fr"><img ng-src="img/compete/big/{{playMeathod.detail.kid | imgPathFilter}}.png" err-src="img/compete/big/kedui.png" /></i>
+					<span class="padding-left match_item_con fr" ng-bind="playMeathod.detail.kscore"></span>
+				</div>
+			</div>
+			<div class="top_canvas">
+				<canvas id="canvas" width="414px" height="155px" style="background: url(img/bg123.png) no-repeat center;background-size: 100% 100%;position: absolute;left:50%;margin-left:-207px;"></canvas>
+			</div>
+			<div class="top_tips" style="z-index: 999;">
+				<p class="tips_btm" ng-class="{true:'red',false:'blue'}[canvas.color=='red']">
+					<img id="img" class="fl" style="padding:0px 10px;height: 100%;" err-src="img/football/102050.png" ng-src="img/football/{{playMeathod.detail.matchIcon}}.png">
+					<span class="fl" ng-bind="playMeathod.detail.rqTime"></span>
+					<span class="fr" style="color: #5868BF !important; padding-right:10px" ng-bind="playMeathod.detail.canvasState"></span>
+				</p>
+			</div>
+		</div>
+		<div class="guess_data" style="">
+			<div class="guess_nav">
+				<div class="guess_navBtn" ng-class="{'active':guessState.checked==0}" ng-click="guessChecked(0)">竞猜</div>
+				<div class="guess_navBtn" ng-class="{'active':guessState.checked==1} " ng-click="guessChecked(1)">实况</div>
+				<div class="guess_navBtn" ng-class="{'active':guessState.checked==2}" ng-click="guessChecked(2)">分析</div>
+				<!--<div class="guess_ranked" ng-click="guessChecked(3)"></div>-->
+			</div>
+		</div>
+		<div ng-switch="guessState.checked">
+			<div ng-switch-when="0">
+				<!--五种玩法总-->
+				<div class="guess_playwrap" ng-if="guessState.slideChange==0">
+					<div class="play_way item item-icon-right">
+						<div class="play_way_list_all" ng-click="jumpGuessRecord()">
+							<img src="img/icon-record.png" />
+							<h2>成交记录</h2>
+							<i class="icon ion-ios-arrow-right"></i>
+						</div>
+						<ion-list>
+							<p class="play_type" ng-bind="playMeathod.title[0]"></p>
+							<ion-item class="space">
+								<div class="row">
+									<i class="col button spf " ng-class="{'spf_checked':stakeData.stakeChecked==(item.zid+'&100'),'sure_checked':item.zt==2}" ng-repeat="item in playMeathod.detail.sf.list track by $index" ng-click="guessAction(item,0,$index,'sf')">
+										<img ng-if="$index==0" ng-src="img/compete/big/{{playMeathod.detail.zid | imgPathFilter}}.png" err-src="img/compete/big/zhudui.png" />
+										<img ng-if="$index==1" src="img/award.png" alt="" />
+										<img ng-if="$index==2" ng-src="img/compete/big/{{playMeathod.detail.kid | imgPathFilter}}.png" err-src="img/compete/big/kedui.png" />
+										<img src="img/angle_no.png" ng-if="item.zt==1||item.zt==3||item.zt==4" class="angle_no" />
+										<p ng-bind="item.ms"></p>
+										<p ng-bind="item.bl"></p>
+									</i>
+								</div>
+							</ion-item>
+						</ion-list>
+						<ion-list>
+							<p class="play_type" ng-bind="playMeathod.title[1]"></p>
+							<ion-item class="space">
+								<div class="row">
+									<i class="col button spf" ng-class="{'spf_checked':stakeData.stakeChecked==(item.zid+'&130'),'sure_checked':item.zt==2}" ng-repeat="item in playMeathod.detail.ds.list track by $index" ng-click="guessAction(item,1,$index,'ds')">
+										<img src="img/11.png" ng-if="$index==0"/>
+										<img src="img/22.png" ng-if="$index==1" />
+										<img src="img/angle_no.png" ng-if="item.zt==1||item.zt==3||item.zt==4" class="angle_no" />
+										<p ng-bind="item.ms"></p>
+										<p ng-bind="item.bl"></p>
+									</i>
+								</div>
+							</ion-item>
+						</ion-list>
+						<!--总进球-->
+						<ion-list>
+							<p class="play_type" ng-bind="playMeathod.title[2]"></p>
+							<ion-item class="space">
+								<div class="row">
+									<i class="col button spf zjq" ng-if="$index<4" ng-repeat="item in playMeathod.detail.zqjq.list track by $index" ng-class="{'spf_checked':stakeData.stakeChecked==(item.zid+'&410'),'sure_checked':item.zt==2}" ng-click="guessAction(item,2,$index,'zqjq')">
+										<img src="img/angle_no.png" ng-if="item.zt==1||item.zt==3||item.zt==4" class="angle_no" />
+										<p ng-bind="item.ms"></p>
+										<p ng-bind="item.bl"></p>
+									</i> 
+								</div>
+								<div class="row">
+									<i class="col button spf zjq" ng-if="$index>=4&&$index<8" ng-repeat="item in playMeathod.detail.zqjq.list track by $index" ng-class="{'spf_checked':stakeData.stakeChecked==(item.zid+'&410'),'sure_checked':item.zt==2}" ng-click="guessAction(item,2,$index,'zqjq')">
+										<img src="img/angle_no.png" ng-if="item.zt==1||item.zt==3||item.zt==4" class="angle_no" />
+										<p ng-bind="item.ms"></p>
+										<p ng-bind="item.bl"></p>
+									</i>
+								</div>
+							</ion-item>
+						</ion-list>
+						<!--下一个进球-->
+						<ion-list>
+							<p class="play_type" ng-bind="playMeathod.title[3]"></p>
+							<ion-item class="space">
+								<div class="row">
+									<i class="col button spf" ng-repeat="item in playMeathod.detail.xjq.list track by $index" ng-click="guessAction(item,3,$index,'xjq')" ng-class="{'spf_checked':stakeData.stakeChecked==(item.zid+'&350'),'sure_checked':item.zt==2}">
+										<img ng-if="$index==0" ng-src="img/compete/big/{{playMeathod.detail.zid | imgPathFilter}}.png" err-src="img/compete/big/zhudui.png" />
+										<img ng-if="$index==1" src="img/00.png" alt="" />
+										<img ng-if="$index==2" ng-src="img/compete/big/{{playMeathod.detail.kid | imgPathFilter}}.png" err-src="img/compete/big/kedui.png" />
+										<img src="img/angle_no.png" ng-if="item.zt==1||item.zt==3||item.zt==4" class="angle_no" />
+										<p ng-bind="item.ms"></p>
+										<p ng-bind="item.bl"></p>
+									</i>
+								</div>
+							</ion-item>
+						</ion-list>
+						<!--猜比分-->
+						<ion-list>
+							<p class="play_type" ng-bind="playMeathod.title[4]"></p>
+							<ion-item class="space">
+								<div class="guess_count_all">
+									<div class="guess_count_wrap">
+										<div class="guess_count_wrap1">
+											<div class="row">
+												<i class="col button spf cbf" ng-if="$index<=6" ng-repeat="item in playMeathod.detail.bf.list track by $index" ng-class="{'spf_checked':stakeData.stakeChecked==(item.zid+'&140'),'sure_checked':item.zt==2}" ng-click="guessAction(item,4,$index,'bf')">
+													<img src="img/angle_no.png" ng-if="item.zt==1||item.zt==3||item.zt==4" class="angle_no" />
+													<p ng-bind="item.ms"></p>
+													<p ng-bind="item.bl"></p>
+												</i>
+											</div>
+										</div>
+										<div class="guess_count_wrap1">
+											<div class="row">
+												<i class="col button spf cbf" ng-if="$index>6&&$index<=13" ng-repeat="item in playMeathod.detail.bf.list track by $index" ng-class="{'spf_checked':stakeData.stakeChecked==(item.zid+'&140'),'sure_checked':item.zt==2}" ng-click="guessAction(item,4,$index,'bf')">
+													<img src="img/angle_no.png" ng-if="item.zt==1||item.zt==3||item.zt==4" class="angle_no" />
+													<p ng-bind="item.ms"></p>
+													<p ng-bind="item.bl"></p>
+												</i>
+											</div>
+										</div>
+										<div class="guess_count_wrap1">
+											<div class="row">
+												<i class="col button spf cbf" ng-if="$index>13&&$index<=20" ng-repeat="item in playMeathod.detail.bf.list track by $index" ng-class="{'spf_checked':stakeData.stakeChecked==(item.zid+'&140'),'sure_checked':item.zt==2}" ng-click="guessAction(item,4,$index,'bf')">
+													<img src="img/angle_no.png" ng-if="item.zt==1||item.zt==3||item.zt==4" class="angle_no" />
+													<p ng-bind="item.ms"></p>
+													<p ng-bind="item.bl"></p>
+												</i>
+											</div>
+										</div>
+									</div>
+									<div class="guess_count_wrap">
+										<div class="guess_count_wrap1">
+											<div class="row">
+												<i class="col button spf cbf" ng-if="$index>20&&$index<=27" ng-repeat="item in playMeathod.detail.bf.list track by $index" ng-class="{'spf_checked':stakeData.stakeChecked==(item.zid+'&140'),'sure_checked':item.zt==2}" ng-click="guessAction(item,4,$index,'bf')">
+													<img src="img/angle_no.png" ng-if="item.zt==1||item.zt==3||item.zt==4" class="angle_no" />
+													<p ng-bind="item.ms"></p>
+													<p ng-bind="item.bl"></p>
+												</i>
+											</div>
+										</div>
+									</div>
+									<div class="guess_count_wrap">
+										<div class="guess_count_wrap1">
+											<div class="row">
+												<i class="col button spf cbf" ng-if="$index>27&&$index<=34" ng-repeat="item in playMeathod.detail.bf.list track by $index" ng-class="{'spf_checked':stakeData.stakeChecked==(item.zid+'&140'),'sure_checked':item.zt==2}" ng-click="guessAction(item,4,$index,'bf')">
+													<img src="img/angle_no.png" ng-if="item.zt==1||item.zt==3||item.zt==4" class="angle_no" />
+													<p ng-bind="item.ms"></p>
+													<p ng-bind="item.bl"></p>
+												</i>
+											</div>
+										</div>
+										<div class="guess_count_wrap1">
+											<div class="row">
+												<i class="col button spf cbf" ng-if="$index>34&&$index<=41" ng-repeat="item in playMeathod.detail.bf.list track by $index" ng-class="{'spf_checked':stakeData.stakeChecked==(item.zid+'&140'),'sure_checked':item.zt==2}" ng-click="guessAction(item,4,$index,'bf')">
+													<img src="img/angle_no.png" ng-if="item.zt==1||item.zt==3||item.zt==4" class="angle_no" />
+													<p ng-bind="item.ms"></p>
+													<p ng-bind="item.bl"></p>
+												</i>
+											</div>
+										</div>
+										<div class="guess_count_wrap1">
+											<div class="row">
+												<i class="col button spf cbf" ng-if="$index>41&&$index<=48" ng-repeat="item in playMeathod.detail.bf.list track by $index" ng-class="{'spf_checked':stakeData.stakeChecked==(item.zid+'&140'),'sure_checked':item.zt==2}" ng-click="guessAction(item,4,$index,'bf')">
+													<img src="img/angle_no.png" ng-if="item.zt==1||item.zt==3||item.zt==4" class="angle_no" />
+													<p ng-bind="item.ms"></p>
+													<p ng-bind="item.bl"></p>
+												</i>
+											</div>
+										</div>
+									</div>
+								</div>
+							</ion-item>
+						</ion-list>
+					</div>
+				</div>
+				<!--轮播五中玩法-->
+				<div class="guess_playwrap guess_slide" ng-if="guessState.slideChange==1">
+					<div class="slide_tit">
+						<span class="titleLeft" ng-bind="stakeData.slideTitle"></span>
+						<span class="titleRight" ng-click="guessState.slideChange=0">更多玩法 》</span>
+					</div>
+					<ion-slide-box class="guess_lunbo" on-slide-changed="stakePlayAction($index)" active-slide="stakeData.changeSlide" does-continue="true" show-pager="true" delegate-handle="stakeSlideBox">
+						<!--胜平负-->
+						<ion-slide>
+							<div style="width: 100%;height:100%;">
+								<div class="row">
+									<i class="col button spf " ng-class="{'spf_checked':stakeData.stakeChecked==(item.zid+'&100'),'sure_checked':item.zt==2}" ng-repeat="item in playMeathod.detail.sf.list track by $index" ng-click="guessAction(item,0,$index,'sf')">
+										<img ng-if="$index==0" ng-src="img/compete/big/{{playMeathod.detail.zid | imgPathFilter}}.png" err-src="img/compete/big/zhudui.png" />
+										<img ng-if="$index==1" src="img/award.png" alt="" />
+										<img ng-if="$index==2" ng-src="img/compete/big/{{playMeathod.detail.kid | imgPathFilter}}.png" err-src="img/compete/big/kedui.png" />
+										<img src="img/angle_no.png" ng-if="item.zt==1||item.zt==3||item.zt==4" class="angle_no" />
+										<p ng-bind="item.ms"></p>
+										<p ng-bind="item.bl"></p>
+									</i>
+								</div>
+								<!--押注-->
+								<div class="guess_stake" ng-if="stakeData.showStakeBtn">
+									<div class="stake_wrap" ng-if="stakeData.showStakeSure==0">
+										<div class="stake_count">
+											<ul class="selected" ng-show="guessState.selectShow==0">
+												<li class="option show_option" ng-click="changeSelect(1)">
+													{{stakeData.showSelectCon}}每注
+													<i class="padding-left icon-right ion-ios-arrow-down"></i>
+												</li>
+											</ul>
+											<ul class="selected selectOpen" ng-show="guessState.selectShow==1">
+												<li class="option" ng-click="changeSelect('all')">
+													All in
+												</li>
+												<li class="option" ng-click="changeSelect(10000)">
+													10000每注
+												</li>
+												<li class="option" ng-click="changeSelect(1000)">
+													1000每注
+												</li>
+												<li class="option" ng-click="changeSelect(100)">
+													100每注
+												</li>
+												<li class="option" ng-click="changeSelect(10)">
+													10每注
+												</li>
+											</ul>
+											<div class="add_stake_con item-input">
+												<button class="fl stake_btn button disable-user-behavior" on-tap="reduceBtn()" on-hold="reduce_hold()" on-release="release()">-</button>
+												<p class="txt" ng-bind="stakeData.showStakeDou"></p>
+												<button class="fr stake_btn button disable-user-behavior" on-tap="addBtn()" on-hold="add_hold()" on-release="release()">+</button>
+											</div>
+											<ul class="show_stake">
+												<li class="fl">
+													<p>预计盈利<span class="yellow" ng-bind="stakeData.showStakeGain"></span></p>
+												</li>
+												<li class="fr">
+													<p>最高投注<span class="yellow" ng-bind="stakeData.showSelectMax"></span></p>
+												</li>
+											</ul>
+											<button class="stake_affrim button button-energized" ng-disabled="stakeData.showStakeDou<=0" ng-click="stakeSurePut()">投注</button>
+										</div>
+									</div>
+									<div class="stake_wrap" ng-if="stakeData.showStakeSure==1">
+										<div class="row">
+											<div class="col yellow">{{stakeData.bettingNum}}次</div>
+											<div class="col yellow" ng-bind="stakeData.selfBeanNum"></div>
+											<div class="col yellow" ng-bind="stakeData.selfProfit"></div>
+										</div>
+										<div class="row" style="color: white;">
+											<div class="col">已投住</div>
+											<div class="col">本金</div>
+											<div class="col">猜中盈利</div>
+										</div>
+										<button class="betd_btn leftbeted_btn button button-assertive" style="background: red;" ng-click="backBean(stakeData.showFanhui)">反悔 &nbsp;退回{{stakeData.showFanhui}}金豆</button>
+										<button class="betd_btn button button-positive" style="background: #3a487f;" ng-click="betdBtnAction()">加注</button>
+									</div>
+									<div class="stake_wrap stake_wrapText" ng-if="stakeData.showStakeSure==2">
+										投注中请稍候...
+									</div>
+									<div class="stake_wrap stake_wrapText" ng-if="stakeData.showStakeSure==3">
+										兑现中请稍候...
+									</div>
+									<div class="stake_wrap stake_wrapText" ng-if="stakeData.showStakeSure==4">
+										该玩法不可押注...
+									</div>
+								</div>
+							</div>
+						</ion-slide>
+						<!--单双-->
+						<ion-slide>
+							<div class="row">
+								<i class="col button spf" ng-class="{'spf_checked':stakeData.stakeChecked==(item.zid+'&130'),'sure_checked':item.zt==2}" ng-repeat="item in playMeathod.detail.ds.list track by $index" ng-click="guessAction(item,1,$index,'ds')">
+									<img src="img/11.png" ng-if="$index==0"/>
+									<img src="img/22.png" ng-if="$index==1" />
+									<img src="img/angle_no.png" ng-if="item.zt==1||item.zt==3||item.zt==4" class="angle_no" />
+									<p ng-bind="item.ms"></p>
+									<p ng-bind="item.bl"></p>
+								</i>
+							</div>
+							<!--押注-->
+							<div class="guess_stake" ng-if="stakeData.showStakeBtn">
+								<div class="stake_wrap" ng-if="stakeData.showStakeSure==0">
+									<div class="stake_count">
+										<ul class="selected" ng-show="guessState.selectShow==0">
+											<li class="option show_option" ng-click="changeSelect(1)">
+												{{stakeData.showSelectCon}}每注
+												<i class="padding-left icon-right ion-ios-arrow-down"></i>
+											</li>
+										</ul>
+										<ul class="selected selectOpen" ng-show="guessState.selectShow==1">
+											<li class="option" ng-click="changeSelect('all')">
+												All in
+											</li>
+											<li class="option" ng-click="changeSelect(10000)">
+												10000每注
+											</li>
+											<li class="option" ng-click="changeSelect(1000)">
+												1000每注
+											</li>
+											<li class="option" ng-click="changeSelect(100)">
+												100每注
+											</li>
+											<li class="option" ng-click="changeSelect(10)">
+												10每注
+											</li>
+										</ul>
+										<div class="add_stake_con item-input">
+											<button class="fl stake_btn button disable-user-behavior" on-tap="reduceBtn()" on-hold="reduce_hold()" on-release="release()">-</button>
+											<p class="txt" ng-bind="stakeData.showStakeDou"></p>
+											<button class="fr stake_btn button disable-user-behavior" on-tap="addBtn()" on-hold="add_hold()" on-release="release()">+</button>
+										</div>
+										<ul class="show_stake">
+											<li class="fl">
+												<p>预计盈利<span class="yellow" ng-bind="stakeData.showStakeGain"></span></p>
+											</li>
+											<li class="fr">
+												<p>最高投注<span class="yellow" ng-bind="stakeData.showSelectMax"></span></p>
+											</li>
+										</ul>
+										<button class="stake_affrim button button-energized" ng-click="stakeSurePut()">投注</button>
+									</div>
+								</div>
+								<div class="stake_wrap" ng-if="stakeData.showStakeSure==1">
+									<div class="row">
+										<div class="col yellow">{{stakeData.bettingNum}}次</div>
+										<div class="col yellow" ng-bind="stakeData.selfBeanNum"></div>
+										<div class="col yellow" ng-bind="stakeData.selfProfit"></div>
+									</div>
+									<div class="row" style="color: white;">
+										<div class="col">已投住</div>
+										<div class="col">本金</div>
+										<div class="col">猜中盈利</div>
+									</div>
+									<button class="betd_btn leftbeted_btn button button-assertive" style="background: red;" ng-click="backBean(stakeData.showFanhui)">反悔 &nbsp;退回{{stakeData.showFanhui}}金豆</button>
+									<button class="betd_btn button button-positive" style="background: #3a487f;" ng-click="betdBtnAction()">加注</button>
+								</div>
+								<div class="stake_wrap stake_wrapText" ng-if="stakeData.showStakeSure==2">
+									投注中请稍候...
+								</div>
+								<div class="stake_wrap stake_wrapText" ng-if="stakeData.showStakeSure==3">
+									兑现中请稍候...
+								</div>
+								<div class="stake_wrap stake_wrapText" ng-if="stakeData.showStakeSure==4">
+									该玩法不可押注...
+								</div>
+							</div>
+						</ion-slide>
+						<!--总进球-->
+						<ion-slide>
+							<div class="row">
+								<i class="col button spf zjq" ng-if="$index<4" ng-repeat="item in playMeathod.detail.zqjq.list track by $index" ng-class="{'spf_checked':stakeData.stakeChecked==(item.zid+'&410'),'sure_checked':item.zt==2}" ng-click="guessAction(item,2,$index,'zqjq')">
+									<img src="img/angle_no.png" ng-if="item.zt==1||item.zt==3||item.zt==4" class="angle_no" />
+									<p ng-bind="item.ms"></p>
+									<p ng-bind="item.bl"></p>
+								</i> 
+							</div>
+							<div class="row">
+								<i class="col button spf zjq" ng-if="$index>=4&&$index<8" ng-repeat="item in playMeathod.detail.zqjq.list track by $index" ng-class="{'spf_checked':stakeData.stakeChecked==(item.zid+'&410'),'sure_checked':item.zt==2}" ng-click="guessAction(item,2,$index,'zqjq')">
+									<img src="img/angle_no.png" ng-if="item.zt==1||item.zt==3||item.zt==4" class="angle_no" />
+									<p ng-bind="item.ms"></p>
+									<p ng-bind="item.bl"></p>
+								</i>
+							</div>
+							<!--押注-->
+							<div class="guess_stake" ng-if="stakeData.showStakeBtn">
+								<div class="stake_wrap" ng-if="stakeData.showStakeSure==0">
+									<div class="stake_count">
+										<ul class="selected" ng-show="guessState.selectShow==0">
+											<li class="option show_option" ng-click="changeSelect(1)">
+												{{stakeData.showSelectCon}}每注
+												<i class="padding-left icon-right ion-ios-arrow-down"></i>
+											</li>
+										</ul>
+										<ul class="selected selectOpen" ng-show="guessState.selectShow==1">
+											<li class="option" ng-click="changeSelect('all')">
+												All in
+											</li>
+											<li class="option" ng-click="changeSelect(10000)">
+												10000每注
+											</li>
+											<li class="option" ng-click="changeSelect(1000)">
+												1000每注
+											</li>
+											<li class="option" ng-click="changeSelect(100)">
+												100每注
+											</li>
+											<li class="option" ng-click="changeSelect(10)">
+												10每注
+											</li>
+										</ul>
+										<div class="add_stake_con item-input">
+											<button class="fl stake_btn button disable-user-behavior" on-tap="reduceBtn()" on-hold="reduce_hold()" on-release="release()">-</button>
+											<p class="txt" ng-bind="stakeData.showStakeDou"></p>
+											<button class="fr stake_btn button disable-user-behavior" on-tap="addBtn()" on-hold="add_hold()" on-release="release()">+</button>
+										</div>
+										<ul class="show_stake">
+											<li class="fl">
+												<p>预计盈利<span class="yellow" ng-bind="stakeData.showStakeGain"></span></p>
+											</li>
+											<li class="fr">
+												<p>最高投注<span class="yellow" ng-bind="stakeData.showSelectMax"></span></p>
+											</li>
+										</ul>
+										<button class="stake_affrim button button-energized" ng-click="stakeSurePut()">投注</button>
+									</div>
+								</div>
+								<div class="stake_wrap" ng-if="stakeData.showStakeSure==1">
+									<div class="row">
+										<div class="col yellow">{{stakeData.bettingNum}}次</div>
+										<div class="col yellow" ng-bind="stakeData.selfBeanNum"></div>
+										<div class="col yellow" ng-bind="stakeData.selfProfit"></div>
+									</div>
+									<div class="row" style="color: white;">
+										<div class="col">已投住</div>
+										<div class="col">本金</div>
+										<div class="col">猜中盈利</div>
+									</div>
+									<button class="betd_btn leftbeted_btn button button-assertive" style="background: red;" ng-click="backBean(stakeData.showFanhui)">反悔 &nbsp;退回{{stakeData.showFanhui}}金豆</button>
+									<button class="betd_btn button button-positive" style="background: #3a487f;" ng-click="betdBtnAction()">加注</button>
+								</div>
+								<div class="stake_wrap stake_wrapText" ng-if="stakeData.showStakeSure==2">
+									投注中请稍候...
+								</div>
+								<div class="stake_wrap stake_wrapText" ng-if="stakeData.showStakeSure==3">
+									兑现中请稍候...
+								</div>
+								<div class="stake_wrap stake_wrapText" ng-if="stakeData.showStakeSure==4">
+									该玩法不可押注...
+								</div>
+							</div>
+						</ion-slide>
+						<!--下一个进球-->
+						<ion-slide>
+							<div class="row">
+								<i class="col button spf" ng-repeat="item in playMeathod.detail.xjq.list track by $index" ng-click="guessAction(item,3,$index,'xjq')" ng-class="{'spf_checked':stakeData.stakeChecked==(item.zid+'&350'),'sure_checked':item.zt==2}">
+									<img ng-if="$index==0" ng-src="img/compete/big/{{playMeathod.detail.zid | imgPathFilter}}.png" err-src="img/compete/big/zhudui.png" />
+									<img ng-if="$index==1" src="img/00.png" alt="" />
+									<img ng-if="$index==2" ng-src="img/compete/big/{{playMeathod.detail.kid | imgPathFilter}}.png" err-src="img/compete/big/kedui.png" />
+									<img src="img/angle_no.png" ng-if="item.zt==1||item.zt==3||item.zt==4" class="angle_no" />
+									<p ng-bind="item.ms"></p>
+									<p ng-bind="item.bl"></p>
+								</i>
+							</div>
+							<!--押注-->
+							<div class="guess_stake" ng-if="stakeData.showStakeBtn">
+								<div class="stake_wrap" ng-if="stakeData.showStakeSure==0">
+									<div class="stake_count">
+										<ul class="selected" ng-show="guessState.selectShow==0">
+											<li class="option show_option" ng-click="changeSelect(1)">
+												{{stakeData.showSelectCon}}每注
+												<i class="padding-left icon-right ion-ios-arrow-down"></i>
+											</li>
+										</ul>
+										<ul class="selected selectOpen" ng-show="guessState.selectShow==1">
+											<li class="option" ng-click="changeSelect('all')">
+												All in
+											</li>
+											<li class="option" ng-click="changeSelect(10000)">
+												10000每注
+											</li>
+											<li class="option" ng-click="changeSelect(1000)">
+												1000每注
+											</li>
+											<li class="option" ng-click="changeSelect(100)">
+												100每注
+											</li>
+											<li class="option" ng-click="changeSelect(10)">
+												10每注
+											</li>
+										</ul>
+										<div class="add_stake_con item-input">
+											<button class="fl stake_btn button disable-user-behavior" on-tap="reduceBtn()" on-hold="reduce_hold()" on-release="release()">-</button>
+											<p class="txt" ng-bind="stakeData.showStakeDou"></p>
+											<button class="fr stake_btn button disable-user-behavior" on-tap="addBtn()" on-hold="add_hold()" on-release="release()">+</button>
+										</div>
+										<ul class="show_stake">
+											<li class="fl">
+												<p>预计盈利<span class="yellow" ng-bind="stakeData.showStakeGain"></span></p>
+											</li>
+											<li class="fr">
+												<p>最高投注<span class="yellow" ng-bind="stakeData.showSelectMax"></span></p>
+											</li>
+										</ul>
+										<button class="stake_affrim button button-energized" ng-click="stakeSurePut()">投注</button>
+									</div>
+								</div>
+								<div class="stake_wrap" ng-if="stakeData.showStakeSure==1">
+									<div class="row">
+										<div class="col yellow">{{stakeData.bettingNum}}次</div>
+										<div class="col yellow" ng-bind="stakeData.selfBeanNum"></div>
+										<div class="col yellow" ng-bind="stakeData.selfProfit"></div>
+									</div>
+									<div class="row" style="color: white;">
+										<div class="col">已投住</div>
+										<div class="col">本金</div>
+										<div class="col">猜中盈利</div>
+									</div>
+									<button class="betd_btn leftbeted_btn button button-assertive" style="background: red;" ng-click="backBean(stakeData.showFanhui)">反悔 &nbsp;退回{{stakeData.showFanhui}}金豆</button>
+									<button class="betd_btn button button-positive" style="background: #3a487f;" ng-click="betdBtnAction()">加注</button>
+								</div>
+								<div class="stake_wrap stake_wrapText" ng-if="stakeData.showStakeSure==2">
+									投注中请稍候...
+								</div>
+								<div class="stake_wrap stake_wrapText" ng-if="stakeData.showStakeSure==3">
+									兑现中请稍候...
+								</div>
+								<div class="stake_wrap stake_wrapText" ng-if="stakeData.showStakeSure==4">
+									该玩法不可押注...
+								</div>
+							</div>
+						</ion-slide>
+						<!--猜比分-->
+						<ion-slide>
+							<div class="guess_count_all">
+								<div class="guess_count_wrap" ng-show="guessState.guessCountSlide==0">
+									<div class="guess_count_wrap1">
+										<div class="row">
+											<i class="col button spf cbf" ng-if="$index<=6" ng-repeat="item in playMeathod.detail.bf.list track by $index" ng-class="{'spf_checked':stakeData.stakeChecked==(item.zid+'&140'),'sure_checked':item.zt==2}" ng-click="guessAction(item,4,$index,'bf')">
+												<img src="img/angle_no.png" ng-if="item.zt==1||item.zt==3||item.zt==4" class="angle_no" />
+												<p ng-bind="item.ms"></p>
+												<p ng-bind="item.bl"></p>
+											</i>
+										</div>
+									</div>
+									<div class="guess_count_wrap1">
+										<div class="row">
+											<i class="col button spf cbf" ng-if="$index>6&&$index<=13" ng-repeat="item in playMeathod.detail.bf.list track by $index" ng-class="{'spf_checked':stakeData.stakeChecked==(item.zid+'&140'),'sure_checked':item.zt==2}" ng-click="guessAction(item,4,$index,'bf')">
+												<img src="img/angle_no.png" ng-if="item.zt==1||item.zt==3||item.zt==4" class="angle_no" />
+												<p ng-bind="item.ms"></p>
+												<p ng-bind="item.bl"></p>
+											</i>
+										</div>
+									</div>
+									<div class="guess_count_wrap1">
+										<div class="row">
+											<i class="col button spf cbf" ng-if="$index>13&&$index<=20" ng-repeat="item in playMeathod.detail.bf.list track by $index" ng-class="{'spf_checked':stakeData.stakeChecked==(item.zid+'&140'),'sure_checked':item.zt==2}" ng-click="guessAction(item,4,$index,'bf')">
+												<img src="img/angle_no.png" ng-if="item.zt==1||item.zt==3||item.zt==4" class="angle_no" />
+												<p ng-bind="item.ms"></p>
+												<p ng-bind="item.bl"></p>
+											</i>
+										</div>
+									</div>
+								</div>
+								<div class="guess_count_wrap" ng-show="guessState.guessCountSlide==1">
+									<div class="guess_count_wrap1">
+										<div class="row">
+											<i class="col button spf cbf" ng-if="$index>20&&$index<=27" ng-repeat="item in playMeathod.detail.bf.list track by $index" ng-class="{'spf_checked':stakeData.stakeChecked==(item.zid+'&140'),'sure_checked':item.zt==2}" ng-click="guessAction(item,4,$index,'bf')">
+												<img src="img/angle_no.png" ng-if="item.zt==1||item.zt==3||item.zt==4" class="angle_no" />
+												<p ng-bind="item.ms"></p>
+												<p ng-bind="item.bl"></p>
+											</i>
+										</div>
+									</div>
+								</div>
+								<div class="guess_count_wrap" ng-show="guessState.guessCountSlide==2">
+									<div class="guess_count_wrap1">
+										<div class="row">
+											<i class="col button spf cbf" ng-if="$index>27&&$index<=34" ng-repeat="item in playMeathod.detail.bf.list track by $index" ng-class="{'spf_checked':stakeData.stakeChecked==(item.zid+'&140'),'sure_checked':item.zt==2}" ng-click="guessAction(item,4,$index,'bf')">
+												<img src="img/angle_no.png" ng-if="item.zt==1||item.zt==3||item.zt==4" class="angle_no" />
+												<p ng-bind="item.ms"></p>
+												<p ng-bind="item.bl"></p>
+											</i>
+										</div>
+									</div>
+									<div class="guess_count_wrap1">
+										<div class="row">
+											<i class="col button spf cbf" ng-if="$index>34&&$index<=41" ng-repeat="item in playMeathod.detail.bf.list track by $index" ng-class="{'spf_checked':stakeData.stakeChecked==(item.zid+'&140'),'sure_checked':item.zt==2}" ng-click="guessAction(item,4,$index,'bf')">
+												<img src="img/angle_no.png" ng-if="item.zt==1||item.zt==3||item.zt==4" class="angle_no" />
+												<p ng-bind="item.ms"></p>
+												<p ng-bind="item.bl"></p>
+											</i>
+										</div>
+									</div>
+									<div class="guess_count_wrap1">
+										<div class="row">
+											<i class="col button spf cbf" ng-if="$index>41&&$index<=48" ng-repeat="item in playMeathod.detail.bf.list track by $index" ng-class="{'spf_checked':stakeData.stakeChecked==(item.zid+'&140'),'sure_checked':item.zt==2}" ng-click="guessAction(item,4,$index,'bf')">
+												<img src="img/angle_no.png" ng-if="item.zt==1||item.zt==3||item.zt==4" class="angle_no" />
+												<p ng-bind="item.ms"></p>
+												<p ng-bind="item.bl"></p>
+											</i>
+										</div>
+									</div>
+								</div>
+								<div class="guess_count_btn">
+									<span class="button count_btn" ng-class="{'active':guessState.guessCountSlide==0}" ng-click="guessState.guessCountSlide=0;stakeData.showStakeBtn=false">胜</span>
+									<span class="button count_btn" ng-class="{'active':guessState.guessCountSlide==1}" ng-click="guessState.guessCountSlide=1;stakeData.showStakeBtn=false">平</span>
+									<span class="button count_btn" ng-class="{'active':guessState.guessCountSlide==2}" ng-click="guessState.guessCountSlide=2;stakeData.showStakeBtn=false">负</span>
+								</div>
+							</div>
+							<!--押注-->
+							<div class="guess_stake" ng-if="stakeData.showStakeBtn">
+								<div class="stake_wrap" ng-if="stakeData.showStakeSure==0">
+									<div class="stake_count">
+										<ul class="selected" ng-show="guessState.selectShow==0">
+											<li class="option show_option" ng-click="changeSelect(1)">
+												{{stakeData.showSelectCon}}每注
+												<i class="padding-left icon-right ion-ios-arrow-down"></i>
+											</li>
+										</ul>
+										<ul class="selected selectOpen" ng-show="guessState.selectShow==1">
+											<li class="option" ng-click="changeSelect('all')">
+												All in
+											</li>
+											<li class="option" ng-click="changeSelect(10000)">
+												10000每注
+											</li>
+											<li class="option" ng-click="changeSelect(1000)">
+												1000每注
+											</li>
+											<li class="option" ng-click="changeSelect(100)">
+												100每注
+											</li>
+											<li class="option" ng-click="changeSelect(10)">
+												10每注
+											</li>
+										</ul>
+										<div class="add_stake_con item-input">
+											<button class="fl stake_btn button disable-user-behavior" on-tap="reduceBtn()" on-hold="reduce_hold()" on-release="release()">-</button>
+											<p class="txt" ng-bind="stakeData.showStakeDou"></p>
+											<button class="fr stake_btn button disable-user-behavior" on-tap="addBtn()" on-hold="add_hold()" on-release="release()">+</button>
+										</div>
+										<ul class="show_stake">
+											<li class="fl">
+												<p>预计盈利<span class="yellow" ng-bind="stakeData.showStakeGain"></span></p>
+											</li>
+											<li class="fr">
+												<p>最高投注<span class="yellow" ng-bind="stakeData.showSelectMax"></span></p>
+											</li>
+										</ul>
+										<button class="stake_affrim button button-energized" ng-click="stakeSurePut()">投注</button>
+									</div>
+								</div>
+								<div class="stake_wrap" ng-if="stakeData.showStakeSure==1">
+									<div class="row">
+										<div class="col yellow">{{stakeData.bettingNum}}次</div>
+										<div class="col yellow" ng-bind="stakeData.selfBeanNum"></div>
+										<div class="col yellow" ng-bind="stakeData.selfProfit"></div>
+									</div>
+									<div class="row" style="color: white;">
+										<div class="col">已投住</div>
+										<div class="col">本金</div>
+										<div class="col">猜中盈利</div>
+									</div>
+									<button class="betd_btn leftbeted_btn button button-assertive" style="background: red;" ng-click="backBean(stakeData.showFanhui)">反悔 &nbsp;退回{{stakeData.showFanhui}}金豆</button>
+									<button class="betd_btn button button-positive" style="background: #3a487f;" ng-click="betdBtnAction()">加注</button>
+								</div>
+								<div class="stake_wrap stake_wrapText" ng-if="stakeData.showStakeSure==2">
+									投注中请稍候...
+								</div>
+								<div class="stake_wrap stake_wrapText" ng-if="stakeData.showStakeSure==3">
+									兑现中请稍候...
+								</div>
+								<div class="stake_wrap stake_wrapText" ng-if="stakeData.showStakeSure==4">
+									该玩法不可押注...
+								</div>
+							</div>
+						</ion-slide>
+					</ion-slide-box>
+				</div>
+				<div class="bar foot bar-footer bar-balanced hot_footer_main" ng-if="guessState.slideChange==1">
+					<div class="footer_palyshow" style="right:5px" ng-click="jumpPlayShow()">玩法介绍</div>
+					<div class="footer_palyshow" style="right:68px" ng-click="jumpGuessRecord()">成交记录</div>
+					<div class="button button-clear footer_bean" ng-click="jumpPayPage()">
+						<span ng-bind="stakeData.showSelectAll"></span>
+					</div>
+					<!--<div class="footer_trade" ng-click="jumpByRecord()">
+						<p>0买入中,0卖出中</p>
+					</div>-->
+				</div>
+			</div>
+			<div ng-switch-when="1">
+				<div class="match_live">
+					<div class="padding">
+						<div class="button-bar">
+							<div class="button button-royal button-outline" ng-click="liveDataChange(0)" ng-class="{'active':guessState.liveState==0}">
+								实时赛况
+							</div>
+							<div class="button button-royal button-outline" ng-click="liveDataChange(1)" ng-class="{'active':guessState.liveState==1}">
+								本场数据
+							</div>
+						</div>
+					</div>
+					<div class="live_mat_data">
+						<div ng-switch="guessState.liveState">
+							<div ng-switch-when="0">
+								<div class="has_no_data" ng-if="!stakeData.caseTypeList.length">
+									<img src="img/has-no-data.png" />
+									<span>暂无数据</span>
+								</div>
+								<div class="live_main_data" ng-if="stakeData.caseTypeList.length">
+									<ion-content class="pleased">
+										<p class="live_data_head"><i class="icon ion-ios-stopwatch"></i></p>
+										<ion-list>
+											<ion-item class="live_list t_a" scrollbar-y="false" ng-repeat="item in stakeData.caseTypeList track by $index">
+												<hr class="hr" size="300" width="1">
+												<div class="recordabsl" ng-if="item.TeamID==1">
+													<img class="fr" ng-src="img/football/{{item.caseType}}.png" err-src="img/football/101024.png" style="width: 22px;">
+													<span class="intdata" ng-bind="item.caseName"></span>
+												</div>
+												<span class="time" ng-class="{'goal':item.caseType==101029||item.caseType==102053}">{{item.caseMinutes}}`</span>
+												<div class="recordabsr" ng-if="item.TeamID==2">
+													<img class="fl" src="img/football/{{item.caseType}}.png" err-src="img/football/101024.png" style="width: 22px;">
+													<span class="intdata" ng-bind="item.caseName"></span>
+												</div>
+											</ion-item>
+										</ion-list>
+									</ion-content>
+								</div>
+							</div>
+							<div ng-switch-when="1">
+								<div class="has_no_data" ng-if="!playMeathod.detail.tj.length">
+									<img src="img/has-no-data.png" />
+									<span>暂无数据</span>
+								</div>
+								<div ng-if="playMeathod.detail.tj.length">
+									<ion-content class="pleased hasDataDetail">
+										<ion-list class="has_data_live comDetailData">
+											<ion-item class="teamdata_item" ng-repeat="item in playMeathod.detail.tj track by $index">
+												<div class="data_box">
+													<div class="box_left" ng-style="item.styleL" ng-bind="item.homeTeamValue"></div>
+												</div>
+												<p ng-bind="item.stateName"></p>
+												<div class="data_box">
+													<div class="box_right" ng-style="item.styleR" ng-bind="item.awayTeamValue"></div>
+												</div>
+											</ion-item>
+										</ion-list>
+									</ion-content>
+								</div>
+								
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+			<div ng-switch-when="2">
+				<div class="match_analysis">
+					<div class="padding">
+						<div class="button-bar">
+							<button class="button button-royal button-outline" ng-class="{'active':guessState.analysisState==0}" ng-click="analysisDataChange(0)">历史交锋</button>
+							<button class="button button-royal button-outline" ng-class="{'active':guessState.analysisState==1}" ng-click="analysisDataChange(1)">近期战绩</button>
+							<button class="button button-royal button-outline" ng-class="{'active':guessState.analysisState==2}" ng-click="analysisDataChange(2)">未来赛事</button>
+						</div>
+					</div>
+					<div class="analysis_main">
+						<div ng-switch="guessState.analysisState">
+							<div ng-switch-when="0">
+								<div class="has_no_data" ng-if="!guessState.analyDataHistory">
+									<img src="img/has-no-data.png"  style="margin-left:0"/>
+									<span>暂无数据</span>
+								</div>
+								<div class="has_data_analy" ng-if="guessState.analyDataHistory">
+									<ion-content class="con_box">
+										<div class="score_box">
+											<div class="left_team">
+												主胜{{analysisHisList.WinNum}}场
+											</div>
+											<div class="mid_team">
+												平局{{analysisHisList.FlatNum}}场
+											</div>
+											<div class="right_team">
+												客胜{{analysisHisList.LossNum}}场
+											</div>
+										</div>
+										<div class="score_list row">
+											<div class="col col-40">
+												<div class="listtit">日期</div>
+											</div>
+											<div class="col col-10"></div>
+											<div class="col col">
+												<div class="listtit listtit2">主场</div>
+											</div>
+											<div class="col col-20"></div>
+											<div class="col col">
+												<div class="listtit listtit3">客场</div>
+											</div>
+										</div>
+										<div class="score_list row" ng-repeat="item in analysisHisList.Data track by $index">
+											<div class="col col-40" ng-bind="item.EventDate">
+											</div>
+											<div class="col col-10"></div>
+											<div class="col col">
+												<img src="img/149.png"/>
+											</div>
+											<div class="col col-20" style="font-size:5vw;">{{item.HomeScore}} : {{item.AwayScore}}</div>
+											<div class="col col">
+												<img src="img/149.png"/>
+											</div>
+										</div>
+									</ion-content>
+								</div>
+							</div>
+							<div ng-switch-when="1">
+								<div class="has_no_data" ng-if="!guessState.analyDataNow">
+									<img src="img/has-no-data.png" style="margin-left:0"/>
+									<span>暂无数据</span>
+								</div>
+								<div class="analy_now_Data" ng-if="guessState.analyDataNow">
+									<ion-content scroll-bar="false" class="analy_now_con">
+										<div class="analy_item">
+											<div class="analy_item_l">
+												<div class="imgwrap">
+													<img src="img/31.png" />
+												</div>
+												<div class="itemname">
+													多特蒙德
+												</div>
+												<p>7胜1平2负</p>
+												<div class="button-bar">
+													<button class="button button-royal button-outline active">
+    														全
+    													</button>
+													<button class="button button-royal button-outline ">
+    														主
+    													</button>
+													<button class="button button-royal button-outline">
+    														客
+    													</button>
+												</div>
+											</div>
+											<ion-scroll direction="x" scrollbar-x="false" class="list_box">
+												<div class="list_wrap">
+													<div class="item_box">
+														<div class="home_match_date">
+															<p style="color:white">04-09</p>
+															<p style="color:#484b54">2017</p>
+														</div>
+														<div class="match_team_icon">
+															<div class="img">
+																<img src="img/255.png" />
+															</div>
+															<p>0</p>
+														</div>
+														<div class="match_team_name">
+															安德莱赫特
+														</div>
+														<div class="match_team_icon">
+															<div class="img">
+																<img src="img/102.png" />
+															</div>
+															<p>0</p>
+														</div>
+														<div class="match_team_name">
+															曼联
+														</div>
+													</div>
+													<div class="item_box">
+														<div class="home_match_date">
+															<p style="color:white">04-09</p>
+															<p style="color:#484b54">2017</p>
+														</div>
+														<div class="match_team_icon">
+															<div class="img">
+																<img src="img/255.png" />
+															</div>
+															<p>0</p>
+														</div>
+														<div class="match_team_name">
+															安德莱赫特
+														</div>
+														<div class="match_team_icon">
+															<div class="img">
+																<img src="img/102.png" />
+															</div>
+															<p>0</p>
+														</div>
+														<div class="match_team_name">
+															曼联
+														</div>
+													</div>
+													<div class="item_box">
+														<div class="home_match_date">
+															<p style="color:white">04-09</p>
+															<p style="color:#484b54">2017</p>
+														</div>
+														<div class="match_team_icon">
+															<div class="img">
+																<img src="img/255.png" />
+															</div>
+															<p>0</p>
+														</div>
+														<div class="match_team_name">
+															安德莱赫特
+														</div>
+														<div class="match_team_icon">
+															<div class="img">
+																<img src="img/102.png" />
+															</div>
+															<p>0</p>
+														</div>
+														<div class="match_team_name">
+															曼联
+														</div>
+													</div>
+													<div class="item_box">
+														<div class="home_match_date">
+															<p style="color:white">04-09</p>
+															<p style="color:#484b54">2017</p>
+														</div>
+														<div class="match_team_icon">
+															<div class="img">
+																<img src="img/255.png" />
+															</div>
+															<p>0</p>
+														</div>
+														<div class="match_team_name">
+															安德莱赫特
+														</div>
+														<div class="match_team_icon">
+															<div class="img">
+																<img src="img/102.png" />
+															</div>
+															<p>0</p>
+														</div>
+														<div class="match_team_name">
+															曼联
+														</div>
+													</div>
+												</div>
+											</ion-scroll>
+										</div>
+										<div class="analy_item">
+											<div class="analy_item_l">
+												<div class="imgwrap">
+													<img src="img/31.png" />
+												</div>
+												<div class="itemname">
+													多特蒙德
+												</div>
+												<p>7胜1平2负</p>
+												<div class="button-bar">
+													<button class="button button-royal button-outline active">
+    														全
+    													</button>
+													<button class="button button-royal button-outline ">
+    														主
+    													</button>
+													<button class="button button-royal button-outline">
+    														客
+    													</button>
+												</div>
+											</div>
+											<ion-scroll direction="x" scrollbar-x="false" class="list_box">
+												<div class="list_wrap">
+													<div class="item_box">
+														<div class="home_match_date">
+															<p style="color:white">04-09</p>
+															<p style="color:#484b54">2017</p>
+														</div>
+														<div class="match_team_icon">
+															<div class="img">
+																<img src="img/255.png" />
+															</div>
+															<p>0</p>
+														</div>
+														<div class="match_team_name">
+															安德莱赫特
+														</div>
+														<div class="match_team_icon">
+															<div class="img">
+																<img src="img/102.png" />
+															</div>
+															<p>0</p>
+														</div>
+														<div class="match_team_name">
+															曼联
+														</div>
+													</div>
+													<div class="item_box">
+														<div class="home_match_date">
+															<p style="color:white">04-09</p>
+															<p style="color:#484b54">2017</p>
+														</div>
+														<div class="match_team_icon">
+															<div class="img">
+																<img src="img/255.png" />
+															</div>
+															<p>0</p>
+														</div>
+														<div class="match_team_name">
+															安德莱赫特
+														</div>
+														<div class="match_team_icon">
+															<div class="img">
+																<img src="img/102.png" />
+															</div>
+															<p>0</p>
+														</div>
+														<div class="match_team_name">
+															曼联
+														</div>
+													</div>
+													<div class="item_box">
+														<div class="home_match_date">
+															<p style="color:white">04-09</p>
+															<p style="color:#484b54">2017</p>
+														</div>
+														<div class="match_team_icon">
+															<div class="img">
+																<img src="img/255.png" />
+															</div>
+															<p>0</p>
+														</div>
+														<div class="match_team_name">
+															安德莱赫特
+														</div>
+														<div class="match_team_icon">
+															<div class="img">
+																<img src="img/102.png" />
+															</div>
+															<p>0</p>
+														</div>
+														<div class="match_team_name">
+															曼联
+														</div>
+													</div>
+													<div class="item_box">
+														<div class="home_match_date">
+															<p style="color:white">04-09</p>
+															<p style="color:#484b54">2017</p>
+														</div>
+														<div class="match_team_icon">
+															<div class="img">
+																<img src="img/255.png" />
+															</div>
+															<p>0</p>
+														</div>
+														<div class="match_team_name">
+															安德莱赫特
+														</div>
+														<div class="match_team_icon">
+															<div class="img">
+																<img src="img/102.png" />
+															</div>
+															<p>0</p>
+														</div>
+														<div class="match_team_name">
+															曼联
+														</div>
+													</div>
+												</div>
+											</ion-scroll>
+										</div>
+									</ion-content>
+								</div>
+							</div>
+							<div ng-switch-when="2">
+								<div class="has_no_data" ng-if="!guessState.analyDataFutrue">
+									<img src="img/has-no-data.png" style="margin-left:0" />
+									<span>暂无数据</span>
+								</div>
+								<div class="match_future" ng-if="guessState.analyDataFutrue">
+									<ion-content has-bouncing="false">
+										<div class="match_future_tit row" style="margin-top:8px;">
+											<div class="col col-25" style="font-size:14px;color: #ce911e;">开赛时间</div>
+											<div class="col" style="font-size:14px;color: #ce911e;">球队</div>
+										</div>
+										<div class="match_future_tit match_team_list row" ng-repeat="item in matchFutrue" ng-class="{'even':$index%2==0,'odd':$index%2==1}">
+											<div class="col col-30" ng-bind="item.EventDate"></div>
+											<div class="col" ng-class="{true:'white'}[item.ColorState==1||item.ColorState==3]" ng-bind="item.HomeName"></div>
+											<div class="col" ng-class="{true:'white'}[item.ColorState==2||item.ColorState==3]" ng-bind="item.AwayName"></div>
+										</div>
+									</ion-content>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div ng-switch-when="3">
+				<div class="match_sort">
+					<div class="has_no_data">
+						<img src="img/sad.png"/>
+					</div>
+					<p>本场暂无排名奖励</p>
+				</div>
+			</div>
+		</div>
+		
+	</ion-content>
+</ion-view>

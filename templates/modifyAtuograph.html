@@ -1,0 +1,18 @@
+<ion-view view-title="个性签名" hide-nav-bar="isWeiXin">
+	<ion-content>
+		<div class="list" style="color: #5970da;">
+			<div class="item" style="background-color: #1f232f;border:0">
+				<textarea rows="5" placeholder="请输入个性签名!最大文字数量不超过50字符" style="width: 100%;color: #5970da; background-color: #1f232f;" ng-model="user.autoGraph" maxlength="50"></textarea>
+			</div>
+			<span class="padding fr">
+				剩余
+				<span style="padding:0 10px">{{50-user.autoGraph.length}}/50</span>
+			</span>
+		</div>
+		<div class="padding">
+			<button class="button button-balanced button-block" ng-click="changeAutoGraph()">
+				确定
+			</button>
+		</div>
+	</ion-content>
+</ion-view>

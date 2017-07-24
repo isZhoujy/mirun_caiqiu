@@ -1,0 +1,87 @@
+<ion-view view-title="赛果" hide-nav-bar="isWeiXin">
+	<ion-content class="teamres_content" scrollbar-y="false" scroll="false">
+		<div class="row t_a team_result">
+			<div class="col-33 team_name">
+				<img ng-src="img/compete/big/{{mainList.zid | imgPathFilter}}.png" err-src="img/compete/big/zhudui.png" />
+				<p ng-bind="mainList.zmc"></p>
+			</div>
+			<div class="col team_center" style="padding:3px 0">
+				<div class="row">
+					<div class="col score">
+						<span ng-bind="mainList.zjq"></span>:<span ng-bind="mainList.kjq"></span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col date" ng-bind="mainList.sj"></div>
+				</div>
+			</div>
+			<div class="col-33 team_name">
+				<img ng-src="img/compete/big/{{mainList.kid | imgPathFilter}}.png" err-src="img/compete/big/zhudui.png" />
+				<p ng-bind="mainList.kmc"></p>
+			</div>
+		</div>
+		<div class="teamres_main">
+			<div class="main_title">
+				<div class="button-bar">
+					<button class="button button-royal button-outline" ng-repeat="item in buttonBarCon" ng-class="{'active':$index==state.btnActive}" ng-click="state.btnActive=$index">{{item}}</button>
+				</div>
+			</div>
+			<div class="main_result">
+				<div ng-switch="state.btnActive">
+					<div ng-switch-when="0">
+						<div class="has_no_data" ng-if="!mainList.cs.length">
+							<img src="img/has-no-data.png"/>
+							<p>暂无数据</p>
+						</div>
+						<div class="has_data_live" ng-if="mainList.cs.length">
+							<ion-content class="live_scroll" scrollbar-y="false">
+								<div class="pleased">
+									<p class="t_a clock">
+										<i class="icon ion-ios-stopwatch"></i>
+									</p>
+									<ion-list>
+										<ion-item class="live_list t_a" ng-repeat="item in mainList.cs track by $index">
+											<hr class="hr" size="300" width="1">
+											<div class="recordabsl" ng-if="item.TeamID==1">
+												<img class="fr" ng-src="img/football/{{item.caseType}}.png">
+												<span class="intdata" ng-bind="item.caseName"></span>
+											</div>
+											<span class="time" ng-class="{'goal':item.caseType==101029||item.caseType==102053}">{{item.caseMinutes}}'</span>
+											<div class="recordabsr" ng-if="item.TeamID==2">
+												<img class="fl" ng-src="img/football/{{item.caseType}}.png">	
+												<span class="intdata" ng-bind="item.caseName"></span>
+											</div>
+										</ion-item>
+									</ion-list>
+								</div>
+							</ion-content>
+							
+						</div>
+					</div>
+					<div ng-switch-when="1">
+						<div class="has_no_data" ng-if="!mainList.tj.length">
+							<img src="img/has-no-data.png"/>
+							<p>暂无数据</p>
+						</div>
+						<div class="has_data_live" ng-if="mainList.tj.length">
+							<ion-content class="live_scroll">
+								<ion-list>
+									<ion-item class="teamdata_item" ng-repeat="item in mainList.tj track by $index">
+										<div class="data_box">
+											<div class="box_left" ng-style="{{item.styleL}}" ng-bind="item.homeTeamValue"></div>
+										</div>
+										<p ng-bind="item.stateName"></p>
+										<div class="data_box">
+											<div class="box_right" ng-style="{{item.styleR}}" ng-bind="item.awayTeamValue"></div>
+										</div>
+									</ion-item>
+								</ion-list>
+							</ion-content>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</ion-content>
+</ion-view>

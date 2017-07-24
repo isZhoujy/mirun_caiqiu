@@ -1,0 +1,66 @@
+<ion-tabs class="tabs-color" id="mainTabs" delegate-handle="myTabs">
+	<ion-tab title="首页" href="#/tab/hot" class="col1">
+	  <ion-nav-view name="hot-tab"></ion-nav-view>
+	</ion-tab>
+	<ion-tab title="赛事" href="#/tab/competition" class="col2">
+	  <ion-nav-view name="competition-tab"></ion-nav-view>
+	</ion-tab>
+	<ion-tab title="达人" ui-sref="tabs.rankings" class="col3">
+	  <ion-nav-view name="rankings-tab"></ion-nav-view>
+	</ion-tab>
+	<ion-tab title="商城" ui-sref="tabs.store" class="col4">
+	  <ion-nav-view name="store-tab"></ion-nav-view>
+	</ion-tab>
+	<ion-tab title="我的" ui-sref="tabs.self" class="col5">
+	  <ion-nav-view name="self-tab"></ion-nav-view>
+	</ion-tab>
+</ion-tabs>
+  <div class="sign_in_Con" ng-if="sign_arr.stateShow">
+		<div class="sign_in_wrap">
+			<div class="sign_in_day">
+				连续签到{{sign_arr.continuityDay}}天
+			</div>
+			<div class="sign_in_dayCount">
+				<div class="dou1" ng-class="{1:'dou1_1'}[sign_arr.signInDayNum]">
+					<p>第{{sign_arr.signInDayList[0].ts | formatNum}}天</p>
+					<span>{{sign_arr.signInDayList[0].jl}}金豆</span>
+				</div>
+				<div class="dou2" ng-class="{2:'dou2_1'}[sign_arr.signInDayNum]">
+					<p>第{{sign_arr.signInDayList[1].ts | formatNum}}天</p>
+					<span>{{sign_arr.signInDayList[1].jl}}金豆</span>
+				</div>
+				<div class="dou3" ng-class="{3:'dou3_1'}[sign_arr.signInDayNum]">
+					<p>第{{sign_arr.signInDayList[2].ts | formatNum}}天</p>
+					<span>{{sign_arr.signInDayList[2].jl}}金豆</span>
+				</div>
+				<div class="dou4" ng-class="{4:'dou4_1'}[sign_arr.signInDayNum]">
+					<p>第{{sign_arr.signInDayList[3].ts | formatNum}}天</p>
+					<span>{{sign_arr.signInDayList[3].jl}}金豆</span>
+				</div>
+				<div class="dou5" ng-class="{5:'dou5_1'}[sign_arr.signInDayNum]">
+					<p>第{{sign_arr.signInDayList[4].ts | formatNum}}天</p>
+					<span>{{sign_arr.signInDayList[4].jl}}金豆</span>
+				</div>
+				<div class="dou6" ng-class="{6:'dou6_1'}[sign_arr.signInDayNum]">
+					<p>第{{sign_arr.signInDayList[5].ts | formatNum}}天</p>
+					<span>{{sign_arr.signInDayList[5].jl}}金豆</span>
+				</div>
+				<div class="dou7" ng-class="{7:'dou7_1'}[sign_arr.signInDayNum]">
+					<p>第{{sign_arr.signInDayList[6].ts | formatNum}}天</p>
+					<span>{{sign_arr.signInDayList[6].jl}}金豆</span>
+				</div>
+			</div>
+			<div class="sign_in_btn" ng-click="signInBtn()"></div>
+		</div>
+	</div>
+  <img src="img/main_icon_1_1.png" style="display: none;"/>
+  <img src="img/main_icon_2_1.png" style="display: none;"/>
+  <img src="img/main_icon_5_1.png" style="display: none;"/>
+  <img src="img/main_icon_4.png" style="display: none;"/>
+  <img src="img/dou1_1.png" style="display: none;"/>
+  <img src="img/dou2_1.png" style="display: none;"/>
+  <img src="img/dou3_1.png" style="display: none;"/>
+  <img src="img/dou4_1.png" style="display: none;"/>
+  <img src="img/dou5_1.png" style="display: none;"/>
+  <img src="img/dou6_1.png" style="display: none;"/>
+  <img src="img/dou7_1.png" style="display: none;"/>

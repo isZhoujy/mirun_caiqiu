@@ -1,0 +1,129 @@
+<ion-view title="达人排行榜" hide-nav-bar="isWeiXin">
+	<ion-content class="ranking" overflow-scroll="true">
+		<!--<div class="bar_switch">
+			<div class="button-bar">
+				<button class="button button-royal button-outline" ng-class="{'active':state.btnSwitch==$index}" ng-repeat="item in switchBtnName" ng-bind="item" ng-click="btnSwtichAction($index)"></button>
+			</div>
+		</div>-->
+		<ion-refresher pulling-text="下拉刷新" spinner="ios" on-refresh="doRefresh()" ></ion-refresher>
+		<div ng-switch="state.btnSwitch">
+			<div ng-switch-when="0">
+				<div class="ranking_list">
+					<div class="list_top">
+						<div class="pad">
+							<div class="button-bar">
+								<button class="button button-royal button-outline ranking_btn" ng-class="{'active':state.rankSwitch==$index}" ng-repeat="item in switchRankingName track by $index" ng-bind="item" ng-click="rankSwitchAction($index)"></button>
+							</div>
+						</div>
+					</div>
+					<div ng-switch="state.rankSwitch">
+						<div ng-switch-when="0">
+							<div class="bar_switch list">
+								<div class="rank_item item row" ng-repeat="item in beanList track by $index" ng-click="goUserInfo(item.playerId)">
+									<div class="col col_con t_l p_l" style="font-size:13px;">
+										<img ng-src="img/rank-{{item.rank}}.png" class="rankImg" ng-if="$index<4&&$index!=0"/>
+										<span ng-bind="{{$index}}" ng-if="$index>=4"></span>
+										<span ng-bind="item.rank" ng-if="$index==0"></span>
+									</div>
+									<div class="col-20 t_r ">
+										<img ng-src="img/userIcon/{{item.playerImgUrl}}.png" err-src="img/userIcon/avatar.png"/>
+									</div>
+									<div class="col-40 t_l p_l col_con toolong" ng-bind="item.playerName"></div>
+									<span class="col-20 t_r p_r col_con rankVal" style="color:#d4a500" ng-bind="item.value"></span>
+								</div>
+							</div>
+							<div class="noneContent" ng-if="state.rankingNoneCon">
+					    		没有更多内容
+					    	</div>
+							<ion-infinite-scroll ng-if="!state.rankingNoneCon" on-infinite="load_more()" spinner="dots" distance="1%" immediate-check="false">
+							</ion-infinite-scroll>
+						</div>
+						
+						<div ng-switch-when="1">
+							<div class="bar_switch list">
+								<div class="rank_item item row" ng-repeat="item in profitList track by $index" ng-click="goUserInfo(item.playerId)">
+									<div class="col col_con t_l p_l" style="font-size:13px;">
+										<img ng-src="img/rank-{{item.rank}}.png" class="rankImg" ng-if="$index<4&&$index!=0"/>
+										<span ng-bind="{{$index}}" ng-if="$index>=4"></span>
+										<span ng-bind="item.rank" ng-if="$index==0"></span>
+									</div>
+									<div class="col-20 t_r ">
+										<img ng-src="img/userIcon/{{item.playerImgUrl}}.png" err-src="img/userIcon/avatar.png"/>
+									</div>
+									<div class="col-40 t_l p_l col_con toolong" ng-bind="item.playerName"></div>
+									<span class="col-20 t_r p_r col_con rankVal" style="color:#d4a500" ng-bind="item.value"></span>
+								</div>
+							</div>
+							<div class="noneContent" ng-if="state.profitNoCon">
+					    		没有更多内容
+					    	</div>
+							<ion-infinite-scroll ng-if="!state.profitNoCon" on-infinite="load_more()" spinner="dots" distance="1%" immediate-check="false">
+							</ion-infinite-scroll>
+						</div>
+						<div ng-switch-when="2">
+							<div class="bar_switch list">
+								<div class="rank_item item row" ng-repeat="item in profitCountList track by $index" ng-click="goUserInfo(item.playerId)">
+									<div class="col col_con t_l p_l" style="font-size:13px;">
+										<img ng-src="img/rank-{{item.rank}}.png" class="rankImg" ng-if="$index<4&&$index!=0"/>
+										<span ng-bind="{{$index}}" ng-if="$index>=4"></span>
+										<span ng-bind="item.rank" ng-if="$index==0"></span>
+									</div>
+									<div class="col-20 t_r ">
+										<img ng-src="img/userIcon/{{item.playerImgUrl}}.png" err-src="img/userIcon/avatar.png"/>
+									</div>
+									<div class="col-40 t_l p_l col_con toolong" ng-bind="item.playerName"></div>
+									<span class="col-20 t_r p_r col_con rankVal" style="color:#d4a500" ng-bind="item.value"></span>
+								</div>
+							</div>
+							<div class="noneContent" ng-if="state.profitCountNoCon">
+					    		没有更多内容
+					    	</div>
+							<ion-infinite-scroll ng-if="!state.profitCountNoCon" on-infinite="load_more()" spinner="dots" distance="1%" immediate-check="false">
+							</ion-infinite-scroll>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+			<!--<div ng-switch-when="1">
+				<div class="rank_match_list" ng-repeat="item in rankResultList track by $index" ng-click="jumpResPage(item)">
+					<div class="match_title">
+						<p ng-bind="item.CompetitionName" class="toolong fl"></p>
+						<p ng-bind="item.EventData" class="fr"></p>
+					</div>
+					<div class="team_title">
+						<img src="img/102.png" class="fl"/>
+						<p ng-bind="item.HomeTeamName" class="fl" style="padding-left:1vw;"></p>
+						<span ng-bind="item.HomeTeamScore"></span>
+						<div class="fl vs">vs</div>
+						<span ng-bind="item.AwayTeamScore"></span>
+						<p ng-bind="item.AwayTeamName" class="fl" style="padding-right: 1vw;"></p>
+						<img class="fl" src="img/132.png"/>
+					</div>
+					<div class="rank_prize">
+						<div class="prize_con">
+							<div class="jp fl" ng-class="{'nb1':$index==0,'nb2':$index==1,'nb3':$index==2}" ng-repeat="itemSub in item.DrsPrizeList track by $index">
+								<img ng-src="img/prize{{$index+1}}.png" />
+								<p class="username" ng-bind="itemSub.NickName"></p>
+							</div>
+						</div>
+						<span class="rank_btn_icon fr">
+							<i class="icon-left ion-chevron-right"></i>
+						</span>
+					</div>
+					<div class="rank_list_bom">
+						<div class="match fl">达人赛</div>
+						<p class="fr" >{{item.JoinPersonNum}}人报名</p>
+					</div>
+				</div>
+				<div class="noneContent" ng-if="state.resMatchNoCon">
+		    		没有更多内容
+		    	</div>
+				<ion-infinite-scroll ng-if="!state.resMatchNoCon" on-infinite="load_more()" spinner="dots" distance="1%" immediate-check="true">
+				</ion-infinite-scroll>
+			</div>-->
+			
+		</div>
+		
+	</ion-content>
+</ion-view>

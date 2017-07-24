@@ -1,0 +1,15 @@
+<ion-modal-view>
+    <ion-header-bar>
+      <h1 class="title" style="color: white;"><span>请选择头像</span><i class="icon ion-close-round" style="float: right;" ng-click="closeModal()"></i></h1>
+    </ion-header-bar>
+    <ion-content>
+    	<div class="userInfo_imgWrap">
+    		<ion-list>
+				<ion-item ng-repeat="item in userIcon track by $index" class="userItem" ng-class="{'checked':checked_State==$index}" ng-click="checkAction($index,item.iconId)">
+					<img ng-src="img/userIcon/{{item.iconId}}.png" />
+				</ion-item>
+			</ion-list>
+    	</div>
+    	
+    </ion-content>
+</ion-modal-view>

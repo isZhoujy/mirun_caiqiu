@@ -1,0 +1,55 @@
+<ion-view view-title="个人信息" hide-nav-bar="isWeiXin">
+	<ion-content class="userinfo">
+		<div class="userinfo_top">
+			<div class="user_img_wrap">
+				<div class="imgbox">
+					<img ng-src="img/userIcon/{{userInfoData.tx}}.png" err-src="img/userIcon/avatar.png"/>
+				</div>
+			</div>
+			<div class="user_name_wrap">
+				<p ng-bind="userInfoData.mc"></p>
+			</div>
+			<div class="infobox">
+				<p ng-bind="userInfoData.qm"></p>
+			</div>
+		</div>
+		<div class="userinfo_bottom">
+			<div class="bot_box">
+				<div class="circle"></div>
+  				<div class="textbox">
+  					<p>金币</p>
+  				</div>
+  				<div class="numbox">
+  					<p ng-bind="userInfoData.jb"></p>
+  				</div>
+			</div>
+			<div class="bot_box">
+				<div class="circle nb2"></div>
+  				<div class="textbox">
+  					<p>金豆</p>
+  				</div>
+  				<div class="numbox">
+  					<p ng-bind="userInfoData.jd"></p>
+  				</div>
+			</div>
+			<div class="bot_box">
+				<div class="circle nb3"></div>
+  				<div class="textbox">
+  					<p>7日盈利</p>
+  				</div>
+  				<div class="numbox">
+  					<p ng-bind="userInfoData.yl"></p>
+  				</div>
+			</div>
+			<div class="bot_box">
+				<div class="circle nb4"></div>
+  				<div class="textbox">
+  					<p>7日盈利率</p>
+  				</div>
+  				<div class="numbox">
+  					<p>{{userInfoData.yll}}%</p>
+  				</div>
+			</div>
+		</div>
+	</ion-content>
+</ion-view>
